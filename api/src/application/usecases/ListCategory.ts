@@ -1,8 +1,9 @@
 import { Category } from '../../domain/models/Category'
-import { list } from '../../interfaces/databases/CategoryRepository'
+import CategoryRepository from '../../interfaces/databases/CategoryRepository'
 
+const categoryRepository = new CategoryRepository()
 export class ListCategory {
   execute() {
-    return list()
+    return categoryRepository.list()
   }
 }

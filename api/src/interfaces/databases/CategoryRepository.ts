@@ -6,6 +6,9 @@ type Category = {
   id: number
   name: string
 }
-export const list = async (): Promise<Category[]> => {
-  return await prisma.category.findMany()
+
+export default class CategoryRepository {
+  list = async (): Promise<Category[]> => {
+    return await prisma.category.findMany()
+  }
 }

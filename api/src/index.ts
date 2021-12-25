@@ -1,4 +1,4 @@
-import app from './app'
+import app from './interfaces/server'
 
 const PORT = process.env.PORT || 18080
 

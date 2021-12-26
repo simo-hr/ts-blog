@@ -13,6 +13,16 @@ model User {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
+}
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  title      String
+  published  Boolean  @default(false)
+  content    String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
 }

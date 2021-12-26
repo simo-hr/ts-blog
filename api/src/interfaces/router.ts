@@ -8,4 +8,10 @@ router.get('/categories', async (req: Request, res: Response) => {
   res.status(200).json({ categories })
 })
 
+router.post('/categories', async (req: Request, res: Response) => {
+  const { name } = req.body
+  let categories = await categoryController.createCategories({ name: name })
+  res.status(201).json({ categories })
+})
+
 export default router

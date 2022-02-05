@@ -5,11 +5,11 @@ jobs:
     name: eslint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: npm install
         run: npm install
       - name: eslint review
-      - uses: reviewdog/action-eslint@v1
+        uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review

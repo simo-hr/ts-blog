@@ -5,6 +5,7 @@
 </template>
 
 <script>
+console.log('foo')
 export default {
 }
 </script>

@@ -2,15 +2,15 @@ name: reviewdog
 on: [pull_request]
 jobs:
   eslint:
-    name: runner / eslint
+    name: eslint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: npm ci
-        run: npm ci
+      - uses: actions/checkout@v1
+      - name: npm install
+        run: npm install
       - name: eslint review
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: eslint-check
-          eslint_flags: './**/*.{vue,ts,js}'
+          reporter: github-pr-review
+          eslint_flags: './**/*.{ts,,js,vue}'

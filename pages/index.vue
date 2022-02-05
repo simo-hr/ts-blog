@@ -5,6 +5,8 @@
 </template>
 
 <script>
+console.log('foo')
+const lintTest = { hoge: 'hoge' }
 export default {
 }
 </script>

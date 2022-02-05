@@ -23,7 +23,7 @@ module.exports = {
       'error',
       {
         arrays: 'never',
-        objects: 'always',
+        objects: 'never',
         imports: 'always',
         exports: 'always',
         functions: 'never',

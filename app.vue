@@ -5,5 +5,5 @@
 </template>
 
 <script>
-const lint = { hoge: 'hoge' }
+const lintTest = { hoge: 'hoge' }
 </script>

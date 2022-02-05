@@ -6,7 +6,7 @@
 
 <script>
 console.log('foo')
-const lint = { hoge: 'hoge' }
+const lintTest = { hoge: 'hoge' }
 export default {
 }
 </script>

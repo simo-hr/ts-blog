@@ -6,6 +6,7 @@
 
 <script>
 console.log('foo')
+const lint = { hoge: 'hoge' }
 export default {
 }
 </script>

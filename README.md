@@ -7,7 +7,7 @@ We recommend to look at the [documentation](https://v3.nuxtjs.org).
 Make sure to install the dependencies
 
 ```bash
-npm run install
+npm install
 ```
 
 ## Development

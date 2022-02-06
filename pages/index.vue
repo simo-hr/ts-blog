@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>Hello World!!</h1>
+    {{ id }}
   </div>
 </template>
 
-<script>
-export default {
-}
+<script setup>
+const id = 1
 </script>

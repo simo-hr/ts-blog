@@ -4,21 +4,10 @@ const PostTypeDef = /* GraphQL */ `
     id: String
     title: String
   }
-  input Sort {
-    created_date: Int
-    title: Int
-  }
-
-  type PostsPagination {
-    list: [Post]
-    is_next_page: Boolean
-    all_count: Int
-  }
 
   # the schema allows the following query:
   type Query {
-    post: Post
-    posts: [Post]
+    post(id: String): Post
   }
 
   # this schema allows the following mutation:

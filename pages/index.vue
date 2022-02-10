@@ -5,5 +5,7 @@
 </template>
 
 <script setup>
-const id = 1
+import { RepositoryFactory, } from '@/api/gql/repositories/index'
+const result = await RepositoryFactory.Post.getPost({ id: '1', })
+console.log(result.data)
 </script>

@@ -1,13 +1,11 @@
-const GET_POSTS = (argText) => {
+const GET_POST = (args) => {
   return `
   {
-    posts(${argText}) {
-      list {
+    post(id:"${args}") {
         id
         title
-      }
     },
   }
 `
 }
-export { GET_POSTS, }
+export { GET_POST, }

@@ -1,10 +1,14 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
-import { GET_POSTS, } from './statement'
+import { GET_POST, } from './statement'
 
 export default {
-  async getPosts (variables) {
-    const gqls = getStatement(GET_POSTS, variables)
+  async getPost (variables) {
+    console.log('variables', variables)
+
+    const gqls = GET_POST(variables.id)
+    console.log(gqls)
+
     const result = await gqlClient.query(gqls, {
       ...variables,
     })

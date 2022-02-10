@@ -1,7 +1,7 @@
 const GET_POST = (args) => {
   return `
   {
-    post(id:"${args}") {
+    post(${args}) {
         id
         title
     },

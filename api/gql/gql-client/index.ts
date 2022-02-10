@@ -17,13 +17,11 @@ const gqlClient = {
     })
   },
   async query (statement, variables) {
-    const result = await this.client().query(statement, {
-      ...variables,
-    }).toPromise()
+    const result = await this.client()
+      .query(statement, { ...variables, })
+      .toPromise()
     return result
   },
 }
 
-export {
-  gqlClient,
-}
+export { gqlClient, }

@@ -4,11 +4,7 @@ import { GET_POST, } from './statement'
 
 export default {
   async getPost (variables) {
-    console.log('variables', variables)
-
-    const gqls = GET_POST(variables.id)
-    console.log(gqls)
-
+    const gqls = getStatement(GET_POST, variables)
     const result = await gqlClient.query(gqls, {
       ...variables,
     })

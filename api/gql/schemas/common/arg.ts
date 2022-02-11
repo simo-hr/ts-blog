@@ -14,5 +14,6 @@ export const fetchArgText = (args) => {
 
 export const getStatement = (statement, args) => {
   const argText = fetchArgText(args)
+  console.log('argText:', argText)
   return statement(argText)
 }

@@ -22,6 +22,14 @@ const gqlClient = {
       .toPromise()
     return result
   },
+  async mutation (statement, variables) {
+    const result = await this.client()
+      .mutation(statement, {
+        ...variables,
+      })
+      .toPromise()
+    return result
+  },
 }
 
 export { gqlClient, }

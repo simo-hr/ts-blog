@@ -1,6 +1,7 @@
 <template>
   <div>
     {{ state.post }}
+    {{ state.admin }}
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import { Post, } from '@/types'
 import { RepositoryFactory, } from '@/api/gql/repositories/index'
 type State = {
-  post:Post
+  post: Post
 }
 const state: State = reactive({
   post: {
@@ -17,6 +18,6 @@ const state: State = reactive({
   },
 })
 
-const result = await RepositoryFactory.Post.getPost({ id: '620126c9b6e69ae10d0ab1d3', })
-state.post = result.data
+const result1 = await RepositoryFactory.Post.getPost({ id: '620126c9b6e69ae10d0ab1d3', })
+state.post = result1.data
 </script>

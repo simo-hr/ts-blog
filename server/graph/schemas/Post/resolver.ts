@@ -2,8 +2,9 @@ import Post from './model'
 
 const PostResolver = {
   Query: {
-    post (_, args) {
-      Post.findOne({ id: args.id, })
+    post (_, { id, }) {
+      const post = Post.findOne({ id, })
+      return post
     },
   },
   Mutation: {

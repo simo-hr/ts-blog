@@ -12,15 +12,15 @@
         autofocus
       />
       <label for="password"></label>
-      <br>
+      <br />
       <input id="password" v-model="state.form.password" type="password" required name="password" />
       <button type="submit">
         サインイン
       </button>
     </form>
-    <button @click="submitCheckAccessToken">
-      check
-    </button>
+    <nuxt-link to="/">
+      Home
+    </nuxt-link>
   </div>
 </template>
 
@@ -28,6 +28,8 @@
 import { setAdmin, getAdmin, } from '@/utils/functions/auth'
 import { EventHandler, } from '@/types/event'
 import { RepositoryFactory, } from '@/api/gql/repositories/index'
+import { BASE_PATH, } from '@/utils/const'
+const router = useRouter()
 type State = {
   form: {
     email: string
@@ -47,13 +49,6 @@ const submitSignIn: EventHandler = async () => {
     throw new Error(result.error?.message)
   }
   setAdmin(result.data.signIn)
-}
-const submitCheckAccessToken: EventHandler = async () => {
-  const accessToken = getAdmin('accessToken')
-  const result = await RepositoryFactory.Admin.checkAccessToken({ accessToken, })
-  if (!result || result.error?.message) {
-    throw new Error(result.error?.message)
-  }
-  console.log(result.data.checkAccessToken)
+  router.push(BASE_PATH)
 }
 </script>

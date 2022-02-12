@@ -1,9 +1,9 @@
 const AdminTypeDef = /* GraphQL */ `
   type Admin {
     _id: ID!
-    id: String
-    email: String
-    password: String
+    id: String!
+    email: String!
+    password: String!
     accessToken: String
     deviceToken: String
     refreshToken: String

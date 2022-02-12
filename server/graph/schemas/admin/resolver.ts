@@ -31,7 +31,6 @@ const PostResolver = {
         throw new Error('Error: accessToken is invalid')
       }
       console.log('success: accessToken check')
-
       return admin
     },
   },

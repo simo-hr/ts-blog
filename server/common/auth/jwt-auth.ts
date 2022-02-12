@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/default
 import jwt from 'jsonwebtoken'
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
@@ -5,19 +6,12 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 // const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
 const expiresIn = '1h'
 
-type JwtPayload = jwt.JwtPayload
 type SignPayload = {
   userId: string
 }
-type VerifiedPayload = JwtPayload & SignPayload
+
 type ResponseVerifyString = {
   decoded?: string
-  error?: {
-    message: string
-  }
-}
-type ResponseVerifyPayload = {
-  decoded?: VerifiedPayload
   error?: {
     message: string
   }
@@ -27,6 +21,7 @@ const signAccessToken = (id: string) => {
   const payload: SignPayload = {
     userId: id,
   }
+  // eslint-disable-next-line import/no-named-as-default-member
   return jwt.sign(payload, accessTokenSecret, {
     expiresIn,
   })
@@ -34,6 +29,7 @@ const signAccessToken = (id: string) => {
 
 const verifyAccessToken = (_accessToken: string): Promise<ResponseVerifyString> => {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line import/no-named-as-default-member
     jwt.verify(_accessToken, accessTokenSecret, (error, decoded) => {
       if (error) {
         return resolve({

@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { setAdmin, getAdmin, } from '@/utils/functions/auth'
+import { setAdmin, } from '@/utils/functions/auth'
 import { EventHandler, } from '@/types/event'
 import { RepositoryFactory, } from '@/api/gql/repositories/index'
 import { BASE_PATH, } from '@/utils/const'

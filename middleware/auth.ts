@@ -2,7 +2,7 @@ import { BASE_PATH, } from '~/utils/const'
 import { isSignIn, getAdmin, removeAdmin, } from '~/utils/functions/auth'
 import { RepositoryFactory, } from '~/api/gql/repositories'
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(async () => {
   if (isSignIn()) {
     const accessToken = getAdmin('accessToken')
     const result = await RepositoryFactory.Admin.checkAccessToken({ accessToken, })

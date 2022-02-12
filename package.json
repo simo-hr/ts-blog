@@ -1,18 +1,49 @@
 {
+  "name": "ts-blog",
+  "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "16.11.0",
+    "npm": "8.0.0"
+  },
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "nodemon --watch ./server --exec \"nuxt dev --port 3019\"",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "cache":"rm -rf node_modules/.vite"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config-typescript": "^8.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
-    "eslint": "^8.8.0",
-    "eslint-plugin-vue": "^8.4.1",
-    "nuxt3": "latest",
-    "typescript": "^4.5.5"
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/plugin-syntax-throw-expressions": "^7.16.7",
+    "@nuxtjs/eslint-config-typescript": "^7.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.20.0",
+    "fibers": "^5.0.0",
+    "kill-port": "^1.6.1",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "sass": "^1.48.0",
+    "sass-loader": "^10.2.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@nuxt/types": "^2.15.8",
+    "@nuxt3-graphql/urql": "^0.4.0",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "bcryptjs": "^2.4.3",
+    "cookie-universal": "^2.1.5",
+    "express": "^4.17.2",
+    "express-graphql": "^0.12.0",
+    "graphql-compose": "^9.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.6",
+    "nuxt3": "^3.0.0-27398533.8edd481"
   }
 }

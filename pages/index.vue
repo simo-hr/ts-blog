@@ -1,10 +1,8 @@
 <template>
   <div>
-    <h1>Hello World!!</h1>
+    Home
+    <nuxt-link to="/admin/signin">
+      signin
+    </nuxt-link>
   </div>
 </template>
-
-<script>
-export default {
-}
-</script>

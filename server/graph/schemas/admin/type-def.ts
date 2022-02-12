@@ -4,11 +4,14 @@ const AdminTypeDef = /* GraphQL */ `
     id: String
     email: String
     password: String
+    accessToken: String
+    deviceToken: String
+    refreshToken: String
   }
 
   # the schema allows the following query:
   type Query {
-    admin(email:String): Admin
+    admin(email: String): Admin
     admins: [Admin]
   }
 
@@ -16,6 +19,7 @@ const AdminTypeDef = /* GraphQL */ `
   type Mutation {
     signIn(email: String!, password: String!): Admin
     signUp(email: String!, password: String!): Admin
+    checkAccessToken(accessToken: String!): Admin
   }
 
   # we need to tell the server which types represent the root query

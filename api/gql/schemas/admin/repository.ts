@@ -1,6 +1,6 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
-import { SIGN_IN, SIGN_UP, } from './statement'
+import { SIGN_IN, SIGN_UP, CHECK_ACCESS_TOKEN, } from './statement'
 
 export default {
   async signIn (variables) {
@@ -15,6 +15,11 @@ export default {
     const result = await gqlClient.mutation(gqls, {
       ...variables,
     })
+    return result
+  },
+  async checkAccessToken (variables) {
+    const ggls = getStatement(CHECK_ACCESS_TOKEN, variables)
+    const result = await gqlClient.mutation(ggls, { ...variables, })
     return result
   },
 }

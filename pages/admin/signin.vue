@@ -4,7 +4,7 @@
       <label for="email"></label>
       <input
         id="email"
-        v-model="state.admin.email"
+        v-model="state.form.email"
         type="text"
         required
         placeholder="例)xxx@xxx.com"
@@ -13,15 +13,19 @@
       />
       <label for="password"></label>
       <br>
-      <input id="password" v-model="state.admin.password" type="password" required name="password" />
+      <input id="password" v-model="state.form.password" type="password" required name="password" />
       <button type="submit">
         サインイン
       </button>
     </form>
+    <button @click="submitCheckAccessToken">
+      check
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { setAdmin, getAdmin, } from '@/utils/functions/auth'
 import { EventHandler, } from '@/types/event'
 import { RepositoryFactory, } from '@/api/gql/repositories/index'
 type State = {
@@ -42,5 +46,14 @@ const submitSignIn: EventHandler = async () => {
   if (!result || result.error?.message) {
     throw new Error(result.error?.message)
   }
+  setAdmin(result.data.signIn)
+}
+const submitCheckAccessToken: EventHandler = async () => {
+  const accessToken = getAdmin('accessToken')
+  const result = await RepositoryFactory.Admin.checkAccessToken({ accessToken, })
+  if (!result || result.error?.message) {
+    throw new Error(result.error?.message)
+  }
+  console.log(result.data.checkAccessToken)
 }
 </script>

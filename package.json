@@ -7,10 +7,11 @@
     "npm": "8.0.0"
   },
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "nodemon --watch ./server --exec \"nuxt dev --port 3019\"",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "cache":"rm -rf node_modules/.vite"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
@@ -21,7 +22,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-loader": "^4.0.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.20.0",
     "fibers": "^5.0.0",
@@ -36,15 +36,14 @@
     "@nuxt/types": "^2.15.8",
     "@nuxt3-graphql/urql": "^0.4.0",
     "@types/express": "^4.17.13",
-    "@urql/vue": "^0.6.1",
+    "@types/jsonwebtoken": "^8.5.8",
     "bcryptjs": "^2.4.3",
     "cookie-universal": "^2.1.5",
     "express": "^4.17.2",
     "express-graphql": "^0.12.0",
-    "graphql": "^16.2.0",
     "graphql-compose": "^9.0.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6",
-    "nuxt3": "^3.0.0-27375427.d07d572"
+    "nuxt3": "^3.0.0-27398533.8edd481"
   }
 }

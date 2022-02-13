@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="login-form" @submit.prevent="submitSignIn()">
+    <form @submit.prevent="submitSignIn()">
       <label for="email"></label>
       <input
         id="email"

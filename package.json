@@ -11,7 +11,7 @@
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "lint": "eslint --ext .ts,.js,.vue .",
-    "cache":"rm -rf node_modules/.vite"
+    "cache": "rm -rf node_modules/.vite"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
@@ -33,9 +33,10 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@nuxt/types": "^2.15.8",
+    "@nuxt/types": "^0.4.1",
     "@nuxt3-graphql/urql": "^0.4.0",
     "@types/express": "^4.17.13",
+    "@types/graphql": "^14.5.0",
     "@types/jsonwebtoken": "^8.5.8",
     "bcryptjs": "^2.4.3",
     "cookie-universal": "^2.1.5",

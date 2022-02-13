@@ -3,12 +3,12 @@ import mongoose from 'mongoose'
 const MSchema = mongoose.Schema
 
 const postSchema = new MSchema({
-  id: String,
+  id: { type: String, required: true, unique: true, },
   title: String,
   content: String,
-  published_at: Date,
-  updated_at: { type: Date, default: Date.now, },
-  is_published: Boolean,
+  isPublished: Boolean,
+  publishedAt: { type: Date, default: Date.now, },
+  updatedAt: { type: Date, default: Date.now, },
 })
 
 const Post = mongoose.model('Post', postSchema)

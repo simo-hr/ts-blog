@@ -6,6 +6,10 @@ const PostResolver = {
       const post = Post.findOne({ id, })
       return post
     },
+    posts () {
+      const posts = Post.find()
+      return posts
+    },
   },
   Mutation: {
     createPost (_, { title, }) {

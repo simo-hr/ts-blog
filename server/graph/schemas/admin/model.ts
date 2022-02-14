@@ -8,8 +8,6 @@ const adminSchema = new MSchema({
   email: String,
   password: String,
   accessToken: String,
-  deviceToken: String,
-  refreshToken: String,
 })
 
 adminSchema.methods.signUp = function ({ email, password, }) {

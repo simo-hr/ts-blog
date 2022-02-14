@@ -24,7 +24,8 @@ export default defineNuxtConfig({
     url: GRAPHQL_ENDPOINT,
   },
   buildModules: [
-    '@nuxt3-graphql/urql'
+    '@nuxt3-graphql/urql',
+    '@nuxtjs/tailwindcss'
   ],
   serverMiddleware: [
     {
@@ -36,4 +37,5 @@ export default defineNuxtConfig({
       handler: '~/server/graph',
     }
   ],
+  css: ['@/assets/css/tailwind.css'],
 })

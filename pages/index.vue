@@ -6,5 +6,8 @@
     <nuxt-link to="/admin/signin">
       signin
     </nuxt-link>
+    <nuxt-link to="/posts/new">
+      new post
+    </nuxt-link>
   </div>
 </template>

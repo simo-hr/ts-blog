@@ -4,9 +4,7 @@ const AdminTypeDef = /* GraphQL */ `
     id: String!
     email: String!
     password: String!
-    accessToken: String
-    deviceToken: String
-    refreshToken: String
+    accessToken: String!
   }
 
   # the schema allows the following query:

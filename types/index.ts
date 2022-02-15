@@ -13,3 +13,10 @@ export type Post = {
   publishedAt: Date
   updatedAt: Date
 }
+
+export type Category = {
+  id: string
+  name: string
+  parentCategoryId: string
+  updatedAt: Date
+}

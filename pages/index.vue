@@ -1,13 +1,22 @@
 <template>
   <div>
-    <p class="text-orange-100">
+    <h1 class="text-3xl">
       Home
+    </h1>
+    <p>
+      <nuxt-link class="text-3xl" to="/admin/signin">
+        signin
+      </nuxt-link>
     </p>
-    <nuxt-link to="/admin/signin">
-      signin
-    </nuxt-link>
-    <nuxt-link to="/posts/new">
-      new post
-    </nuxt-link>
+    <p>
+      <nuxt-link class="text-3xl" to="/posts/new">
+        new post
+      </nuxt-link>
+    </p>
+    <p>
+      <nuxt-link class="text-3xl" to="/posts">
+        post list
+      </nuxt-link>
+    </p>
   </div>
 </template>

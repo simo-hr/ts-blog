@@ -1,9 +1,7 @@
 <template>
   <div>
-    <p>
-      {{ props.isEdit ? '更新' : '新規' }}
-    </p>
-    {{ state.post }}
+    <p>{{ props.isEdit ? '更新' : '新規' }}</p>
+    <EditorInput :post-content="state.post.content" />
   </div>
 </template>
 
@@ -29,6 +27,7 @@ const state: State = reactive({
   },
 })
 if (typeof route.params?.id === 'string') {
-  state.post = await RepositoryFactory.Post.getPost({ id: route.params.id, }).then(result => result.data)
+  state.post = await RepositoryFactory.Post.getPost({ id: route.params.id, }).then(result => result.data.post)
+  console.log('state.post:', state.post)
 }
 </script>

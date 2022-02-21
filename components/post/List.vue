@@ -23,6 +23,9 @@ console.log(state.posts)
 <template>
   <div>
     <div v-for="(post, index) in state.posts" :key="index">
+      <nuxt-link class="text-3xl" :to="`/posts/edit/${post.id}`">
+        edit
+      </nuxt-link>
       <p>{{ post.id }}</p>
       <p>{{ post.title }}</p>
       <p>{{ post.content }}</p>

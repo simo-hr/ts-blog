@@ -12,16 +12,13 @@ const CategoryResolver = {
     },
   },
   Mutation: {
-    createCategory (_, { name, parentCategoryId = undefined, }: { name: string; parentCategoryId?: string }) {
-      const category = new Category({
-        name,
-        parentCategoryId,
-      })
+    createCategory (_, args: { name: string; parentCategoryId?: string }) {
+      const category = new Category(args)
       category.id = category._id.toString()
       category.updatedAt = new Date()
       return category.save()
     },
-    updateCategory (_, args) {
+    updateCategory (_, args: { id: string; name?: string }) {
       const updatedCategory = Category.findByIdAndUpdate(
         args.id,
         {

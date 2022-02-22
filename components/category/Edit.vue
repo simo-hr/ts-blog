@@ -1,58 +1,19 @@
-<template>
-  <div class="w-full max-w-xs">
-    <p>
-      {{ props.isEdit ? '更新' : '新規' }}
-    </p>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCreateCategory()">
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="name"> name </label>
-        <input
-          id="name"
-          v-model="state.form.name"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-          type="text"
-          placeholder="category name"
-        />
-      </div>
-      <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="parentCategoryId">親カテゴリー</label>
-        <select
-          id="parentCategoryId"
-          v-model="state.form.parentCategoryId"
-          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 ssssssssssssssssssssssssssssssssssssssssss-3 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          <option v-for="(category,index) in categories" :key="index" :value="category.id">
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
-      <div class="flex items-center justify-between">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          register
-        </button>
-      </div>
-    </form>
-    <p class="text-center text-gray-500 text-xs">
-      &copy;2022 simo. All rights reserved.
-    </p>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { RepositoryFactory, } from '@/api/gql/repositories'
 import { Category, } from '@/types'
+
 const route = useRoute()
+
 type Props = {
   isEdit?: boolean
 }
+
 const props = defineProps<Props>()
+
 type State = {
   form: Category
 }
+
 const state: State = reactive({
   form: {
     id: '',
@@ -75,13 +36,56 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
   return result.data.categories
 })
 
-console.log(categories)
-const submitCreateCategory = async (): Promise<void> => {
-  await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
-    if (result.error) {
-      throw new Error(result.error.message)
-    }
-    return result.data.createCategory
-  })
+const submitCategory = async (): Promise<void> => {
+  if (props.isEdit) {
+    await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
+      if (result.error) {
+        throw new Error(result.error.message)
+      }
+      return result.data.createCategory
+    })
+  }
+  console.log('更新処理')
 }
 </script>
+
+<template>
+  <div class="w-full max-w-xs">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCategory()">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">カテゴリー名</label>
+        <input
+          id="name"
+          v-model="state.form.name"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          required
+          type="text"
+          placeholder="category name"
+        />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="parentCategoryId">親カテゴリー</label>
+        <select
+          id="parentCategoryId"
+          v-model="state.form.parentCategoryId"
+          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 ssssssssssssssssssssssssssssssssssssssssss-3 leading-tight focus:outline-none focus:shadow-outline"
+        >
+          <option v-for="(category, index) in categories" :key="index" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          {{ props.isEdit ? '更新' : '新規' }}
+        </button>
+      </div>
+    </form>
+    <p class="text-center text-gray-500 text-xs">
+      &copy;2022 simo. All rights reserved.
+    </p>
+  </div>
+</template>

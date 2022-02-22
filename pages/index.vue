@@ -18,5 +18,10 @@
         post list
       </nuxt-link>
     </p>
+    <p>
+      <nuxt-link class="text-3xl" to="/categories">
+        category list
+      </nuxt-link>
+    </p>
   </div>
 </template>

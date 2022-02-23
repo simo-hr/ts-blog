@@ -30,6 +30,9 @@ const handleDeleteDoc = () => {
             カテゴリーID
           </th>
           <th class="px-4 py-2">
+            親カテゴリー
+          </th>
+          <th class="px-4 py-2">
             カテゴリー名
           </th>
           <th class="px-4 py-2">
@@ -52,10 +55,13 @@ const handleDeleteDoc = () => {
             {{ category.id }}
           </td>
           <td class="border px-4 py-2">
+            {{ category.parent_category_id }}
+          </td>
+          <td class="border px-4 py-2">
             {{ category.name }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.updatedAt }}
+            {{ category.updated_at }}
           </td>
           <td class="border px-4 py-2">
             <nuxt-link :to="`/categories/edit/${category.id}`">

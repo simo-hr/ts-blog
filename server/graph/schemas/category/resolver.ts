@@ -12,22 +12,24 @@ const CategoryResolver = {
     },
   },
   Mutation: {
-    createCategory (_, args: { name: string; parentCategoryId?: string }) {
+    createCategory (_, args: { name: string; parent_category_id?: string }) {
       const category = new Category(args)
       category.id = category._id.toString()
-      category.updatedAt = new Date()
       return category.save()
     },
-    updateCategory (_, args: { id: string; name?: string }) {
+    updateCategory (_, args: { id: string; name: string; parent_category_id?: string }) {
+      console.log('args.name:', args.name)
+      console.log('args.parent_category_id:', args.parent_category_id)
       const updatedCategory = Category.findByIdAndUpdate(
         args.id,
         {
           $set: {
             name: args.name,
-            updatedAt: new Date(),
+            parent_category_id: args.parent_category_id,
+            updated_at: new Date(),
           },
         },
-        { new: true, }
+        { new: true, upsert: true, }
       )
       return updatedCategory
     },

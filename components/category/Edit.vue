@@ -18,8 +18,8 @@ const state: State = reactive({
   form: {
     id: '',
     name: '',
-    parentCategoryId: '',
-    updatedAt: new Date(),
+    parent_category_id: '',
+    updated_at: new Date(),
   },
 })
 
@@ -38,14 +38,24 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
 
 const submitCategory = async (): Promise<void> => {
   if (props.isEdit) {
-    await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
+    console.log('props.isEdit:', props.isEdit)
+    await RepositoryFactory.Category.updateCategory({
+      id: state.form.id,
+      name: state.form.name,
+      parent_category_id: state.form.parent_category_id,
+    }).then((result) => {
       if (result.error) {
         throw new Error(result.error.message)
       }
-      return result.data.createCategory
+      return result.data.updateCategory
     })
   }
-  console.log('更新処理')
+  await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
+    if (result.error) {
+      throw new Error(result.error.message)
+    }
+    return result.data.createCategory
+  })
 }
 </script>
 
@@ -67,8 +77,8 @@ const submitCategory = async (): Promise<void> => {
         <label class="block text-gray-700 text-sm font-bold mb-2" for="parentCategoryId">親カテゴリー</label>
         <select
           id="parentCategoryId"
-          v-model="state.form.parentCategoryId"
-          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 ssssssssssssssssssssssssssssssssssssssssss-3 leading-tight focus:outline-none focus:shadow-outline"
+          v-model="state.form.parent_category_id"
+          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
           <option v-for="(category, index) in categories" :key="index" :value="category.id">
             {{ category.name }}

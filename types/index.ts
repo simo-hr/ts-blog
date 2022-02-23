@@ -17,6 +17,6 @@ export type Post = {
 export type Category = {
   id: string
   name: string
-  parentCategoryId?: string
-  updatedAt: Date
+  parent_category_id?: string
+  updated_at: Date
 }

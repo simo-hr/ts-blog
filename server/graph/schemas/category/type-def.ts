@@ -3,8 +3,8 @@ const CategoryTypeDef = /* GraphQL */ `
     _id: ID!
     id: String!
     name: String!
-    parentCategoryId: String
-    updatedAt: Date!
+    parent_category_id: String
+    updated_at: Date!
   }
 
   # the schema allows the following query:
@@ -15,8 +15,8 @@ const CategoryTypeDef = /* GraphQL */ `
 
   # this schema allows the following mutation:
   type Mutation {
-    createCategory(name: String!, parentCategoryId: String): Category
-    updateCategory(id: String!, name: String, parentCategoryId: String): Category
+    createCategory(name: String!, parent_category_id: String): Category
+    updateCategory(id: String!, name: String!, parent_category_id: String): Category
     removeCategory(id: String!): Category
   }
 

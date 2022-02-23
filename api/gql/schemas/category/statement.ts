@@ -4,8 +4,8 @@ const GET_CATEGORY = (args) => {
     category(${args}) {
       id
       name
-      parentCategoryId
-      updatedAt
+      parent_category_id
+      updated_at
     },
   }
 `
@@ -17,8 +17,8 @@ const GET_CATEGORIES = () => {
     categories {
       id
       name
-      parentCategoryId
-      updatedAt
+      parent_category_id
+      updated_at
     },
   }
 `
@@ -30,10 +30,22 @@ const CREATE_CATEGORY = (args) => {
     createCategory (${args}) {
       id
       name
-      parentCategoryId
-      updatedAt
+      parent_category_id
+      updated_at
     },
   }
 `
 }
-export { GET_CATEGORY, GET_CATEGORIES, CREATE_CATEGORY, }
+const UPDATE_CATEGORY = (args) => {
+  return `
+  mutation {
+    updateCategory (${args}) {
+      id
+      name
+      parent_category_id
+      updated_at
+    },
+  }
+`
+}
+export { GET_CATEGORY, GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, }

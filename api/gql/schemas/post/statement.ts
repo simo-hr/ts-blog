@@ -5,9 +5,9 @@ const GET_POST = (args) => {
       id
       title
       content
-      isPublished
-      publishedAt
-      updatedAt
+      is_published
+      published_at
+      updated_at
     },
   }
 `
@@ -20,9 +20,9 @@ const GET_POSTS = () => {
       id
       title
       content
-      isPublished
-      publishedAt
-      updatedAt
+      is_published
+      published_at
+      updated_at
     },
   }
 `

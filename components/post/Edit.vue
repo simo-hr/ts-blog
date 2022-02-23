@@ -21,9 +21,9 @@ const state: State = reactive({
     id: '',
     title: '',
     content: '',
-    isPublished: false,
-    publishedAt: new Date(),
-    updatedAt: new Date(),
+    is_published: false,
+    published_at: new Date(),
+    updated_at: new Date(),
   },
 })
 if (typeof route.params?.id === 'string') {

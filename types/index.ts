@@ -9,9 +9,9 @@ export type Post = {
   id: string
   title: string
   content: string
-  isPublished: boolean
-  publishedAt: Date
-  updatedAt: Date
+  is_published: boolean
+  published_at: Date
+  updated_at: Date
 }
 
 export type Category = {

@@ -10,9 +10,9 @@ const state: State = reactive({
       id: '',
       title: '',
       content: '',
-      isPublished: false,
-      publishedAt: new Date(),
-      updatedAt: new Date(),
+      is_published: false,
+      published_at: new Date(),
+      updated_at: new Date(),
     }
   ],
 })
@@ -29,9 +29,9 @@ console.log(state.posts)
       <p>{{ post.id }}</p>
       <p>{{ post.title }}</p>
       <p>{{ post.content }}</p>
-      <p>{{ post.isPublished }}</p>
-      <p>{{ post.publishedAt }}</p>
-      <p>{{ post.updatedAt }}</p>
+      <p>{{ post.is_published }}</p>
+      <p>{{ post.published_at }}</p>
+      <p>{{ post.updated_at }}</p>
     </div>
   </div>
 </template>

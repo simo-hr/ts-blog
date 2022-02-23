@@ -4,9 +4,9 @@ const PostTypeDef = /* GraphQL */ `
     id: String!
     title: String!
     content: String
-    isPublished: Boolean!
-    publishedAt: Date!
-    updatedAt: Date!
+    is_published: Boolean!
+    published_at: Date!
+    updated_at: Date!
   }
 
   # the schema allows the following query:

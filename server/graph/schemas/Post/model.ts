@@ -6,9 +6,9 @@ const postSchema = new MSchema({
   id: { type: String, required: true, unique: true, },
   title: String,
   content: String,
-  isPublished: Boolean,
-  publishedAt: { type: Date, default: Date.now, },
-  updatedAt: { type: Date, default: Date.now, },
+  is_published: Boolean,
+  published_at: { type: Date, default: Date.now, },
+  updated_at: { type: Date, default: Date.now, },
 })
 
 const Post = mongoose.model('Post', postSchema)

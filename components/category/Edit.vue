@@ -39,28 +39,28 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
 
 const router = useRouter()
 const submitCategory = async () => {
-  await RepositoryFactory.Category.updateCategory({
-    id: state.form.id,
-    name: state.form.name,
-    parent_category_id: state.form.parent_category_id,
-  }).then((result) => {
-    if (result.error) {
-      throw new Error(result.error.message)
-    }
-    return result.data.updateCategory
-  })
-  // await RepositoryFactory.Category.updateCategory({
-  //   id: state.form.id,
-  //   name: state.form.name,
-  //   parent_category_id: state.form.parent_category_id,
-  // })
-
-  // await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
-  //   if (result.error) {
-  //     throw new Error(result.error.message)
-  //   }
-  //   return result.data.createCategory
-  // })
+  if (props.isEdit) {
+    await RepositoryFactory.Category.updateCategory({
+      id: state.form.id,
+      name: state.form.name,
+      parent_category_id: state.form.parent_category_id,
+    }).then((result) => {
+      if (result.error) {
+        throw new Error(result.error.message)
+      }
+      return result.data.updateCategory
+    })
+  } else {
+    await RepositoryFactory.Category.createCategory({
+      name: state.form.name,
+      parent_category_id: state.form.parent_category_id,
+    }).then((result) => {
+      if (result.error) {
+        throw new Error(result.error.message)
+      }
+      return result.data.createCategory
+    })
+  }
   router.push(`${BASE_PATH}categories`)
 }
 </script>

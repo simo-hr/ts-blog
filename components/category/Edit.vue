@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RepositoryFactory, } from '@/api/gql/repositories'
 import { Category, } from '@/types'
+import { BASE_PATH, } from '@/utils/const'
 
 const route = useRoute()
 
@@ -36,32 +37,47 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
   return result.data.categories
 })
 
-const submitCategory = async (): Promise<void> => {
-  if (props.isEdit) {
-    console.log('props.isEdit:', props.isEdit)
-    await RepositoryFactory.Category.updateCategory({
-      id: state.form.id,
-      name: state.form.name,
-      parent_category_id: state.form.parent_category_id,
-    }).then((result) => {
-      if (result.error) {
-        throw new Error(result.error.message)
-      }
-      return result.data.updateCategory
-    })
-  }
-  await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
+const router = useRouter()
+const submitCategory = async () => {
+  await RepositoryFactory.Category.updateCategory({
+    id: state.form.id,
+    name: state.form.name,
+    parent_category_id: state.form.parent_category_id,
+  }).then((result) => {
     if (result.error) {
       throw new Error(result.error.message)
     }
-    return result.data.createCategory
+    return result.data.updateCategory
   })
+  // await RepositoryFactory.Category.updateCategory({
+  //   id: state.form.id,
+  //   name: state.form.name,
+  //   parent_category_id: state.form.parent_category_id,
+  // })
+
+  // await RepositoryFactory.Category.createCategory({ name: state.form.name, }).then((result) => {
+  //   if (result.error) {
+  //     throw new Error(result.error.message)
+  //   }
+  //   return result.data.createCategory
+  // })
+  router.push(`${BASE_PATH}categories`)
 }
 </script>
 
 <template>
   <div class="w-full max-w-xs">
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCategory()">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCategory">
+      <div v-if="isEdit" class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">カテゴリーID</label>
+        <input
+          id="id"
+          v-model="state.form.id"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          disabled
+          placeholder="category id"
+        />
+      </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="name">カテゴリー名</label>
         <input

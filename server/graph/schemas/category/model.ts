@@ -9,6 +9,10 @@ const categorySchema = new MSchema({
   updated_at: { type: Date, required: true, default: Date.now, },
 })
 
+categorySchema.methods.parentCategoryIdIsMe = function (parentCategoryId) {
+  return this.id === parentCategoryId
+}
+
 const Category = mongoose.model('Category', categorySchema)
 
 export default Category

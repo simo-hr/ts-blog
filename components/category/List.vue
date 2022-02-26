@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { RepositoryFactory, } from '@/api/gql/repositories'
 import { Category, } from '@/types'
-type State = {
-  categories: Category[]
+
+const categoriesRef = ref<Category[]>()
+
+const fetchData = async () => {
+  categoriesRef.value = await RepositoryFactory.Category.getCategories().then(result => result.data.categories)
 }
-const state: State = reactive({
-  categories: [],
+
+useAsyncData('data', async () => {
+  await fetchData()
 })
 
-state.categories = await RepositoryFactory.Category.getCategories().then(result => result.data.categories)
-
-const handleDeleteDoc = () => {
-  console.log('削除処理')
+const handleDeleteDoc = async (index) => {
+  await RepositoryFactory.Category.removeCategory({
+    id: categoriesRef.value[index].id,
+  })
+  await fetchData()
 }
 </script>
 
@@ -36,6 +41,9 @@ const handleDeleteDoc = () => {
             カテゴリー名
           </th>
           <th class="px-4 py-2">
+            作成日
+          </th>
+          <th class="px-4 py-2">
             更新日
           </th>
           <th class="px-4 py-2">
@@ -47,7 +55,7 @@ const handleDeleteDoc = () => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(category, index) in state.categories" :key="index">
+        <tr v-for="(category, index) in categoriesRef" :key="index">
           <td class="border px-4 py-2">
             {{ index + 1 }}
           </td>
@@ -59,6 +67,9 @@ const handleDeleteDoc = () => {
           </td>
           <td class="border px-4 py-2">
             {{ category.name }}
+          </td>
+          <td class="border px-4 py-2">
+            {{ category.created_at }}
           </td>
           <td class="border px-4 py-2">
             {{ category.updated_at }}

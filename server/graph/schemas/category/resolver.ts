@@ -46,17 +46,8 @@ const CategoryResolver = {
           throw error
         })
     },
-    removeCategory (_, args) {
-      const updatedCategory = Category.findByIdAndUpdate(
-        args.id,
-        {
-          $set: {
-            title: args.title,
-          },
-        },
-        { new: true, }
-      )
-      return updatedCategory
+    async removeCategory (_, args) {
+      await Category.findByIdAndRemove(args.id)
     },
   },
 }

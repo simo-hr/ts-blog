@@ -34,24 +34,17 @@ const CategoryResolver = {
             name: args.name,
             parent_category_id: args.parent_category_id,
             updated_at: new Date(),
+            updated_unixtime: Date.now,
           },
         },
         { new: true, }
-        // ,
-        // (error, category) => {
-        //   if (error) {
-        //     console.error('error.message:', error.message)
-        //     throw error
-        //   }
-        //   console.log('category:', category)
-        //   return category
-        // }
-      ).then((category) => {
-        return category
-      }).catch((error) => {
-        throw error
-      })
-      // console.log('updatedCategory:', updatedCategory)
+      )
+        .then((category) => {
+          return category
+        })
+        .catch((error) => {
+          throw error
+        })
     },
     removeCategory (_, args) {
       const updatedCategory = Category.findByIdAndUpdate(

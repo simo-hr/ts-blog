@@ -1,3 +1,10 @@
+export type Timestamp = {
+  created_at: number
+  created_unixtime: number
+  updated_at: number
+  updated_unixtime: number
+}
+
 export type Admin = {
   id: string
   email: string
@@ -14,9 +21,11 @@ export type Post = {
   updated_at: Date
 }
 
-export type Category = {
+export type CategoryData = {
   id: string
   name: string
   parent_category_id?: string
   updated_at: Date
 }
+
+export type Category = CategoryData & Timestamp

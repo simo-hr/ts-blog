@@ -4,7 +4,10 @@ const CategoryTypeDef = /* GraphQL */ `
     id: String!
     name: String!
     parent_category_id: String
-    updated_at: Date!
+    created_at: Float
+    created_unixtime: Float
+    updated_at: Float
+    updated_unixtime: Float
   }
 
   # the schema allows the following query:

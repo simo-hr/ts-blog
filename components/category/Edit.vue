@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RepositoryFactory, } from '@/api/gql/repositories'
-import { Category, } from '@/types'
+import { CategoryData, } from '@/types'
 import { BASE_PATH, } from '@/utils/const'
 
 const route = useRoute()
@@ -12,7 +12,7 @@ type Props = {
 const props = defineProps<Props>()
 
 type State = {
-  form: Category
+  form: CategoryData
 }
 
 const state: State = reactive({

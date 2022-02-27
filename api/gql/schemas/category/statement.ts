@@ -5,6 +5,7 @@ const GET_CATEGORY = (args) => {
       id
       name
       parent_category_id
+      posts
       created_at
       created_unixtime
       updated_at
@@ -21,6 +22,7 @@ const GET_CATEGORIES = () => {
       id
       name
       parent_category_id
+      posts
       created_at
       created_unixtime
       updated_at
@@ -37,6 +39,7 @@ const CREATE_CATEGORY = (args) => {
       id
       name
       parent_category_id
+      posts
       created_at
       created_unixtime
       updated_at
@@ -52,6 +55,7 @@ const UPDATE_CATEGORY = (args) => {
       id
       name
       parent_category_id
+      posts
       created_at
       created_unixtime
       updated_at
@@ -67,6 +71,7 @@ const REMOVE_CATEGORY = (args) => {
       id
       name
       parent_category_id
+      posts
       created_at
       created_unixtime
       updated_at

@@ -4,6 +4,7 @@ const CategoryTypeDef = /* GraphQL */ `
     id: String!
     name: String!
     parent_category_id: String
+    posts: [Post]
     created_at: Float
     created_unixtime: Float
     updated_at: Float

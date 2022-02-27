@@ -3,10 +3,14 @@ const PostTypeDef = /* GraphQL */ `
     _id: ID!
     id: String!
     title: String!
-    content: String
+    content: String!
     is_published: Boolean!
-    published_at: Date!
-    updated_at: Date!
+    published_at: Date
+    category: Category
+    created_at: Float!
+    created_unixtime: Float!
+    updated_at: Float!
+    updated_unixtime: Float!
   }
 
   # the schema allows the following query:
@@ -17,8 +21,8 @@ const PostTypeDef = /* GraphQL */ `
 
   # this schema allows the following mutation:
   type Mutation {
-    createPost(title: String!, content: String): Post
-    updatePost(id: String!, title: String, content: String): Post
+    createPost(title: String!, content: String!, is_published: Boolean, published_at: String, category_id: String): Post
+    updatePost(title: String!, content: String!, is_published: Boolean, published_at: String, category_id: String): Post
     removePost(id: String!): Post
   }
 

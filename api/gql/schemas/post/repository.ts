@@ -1,6 +1,6 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
-import { GET_POST, GET_POSTS, } from './statement'
+import { GET_POST, GET_POSTS, CREATE_POSTS, } from './statement'
 
 export default {
   async getPost (variables: { id: string }) {
@@ -12,6 +12,11 @@ export default {
   },
   async getPosts () {
     const gqls = getStatement(GET_POSTS, {})
+    const result = await gqlClient.query(gqls, {})
+    return result
+  },
+  async createPost () {
+    const gqls = getStatement(CREATE_POSTS, {})
     const result = await gqlClient.query(gqls, {})
     return result
   },

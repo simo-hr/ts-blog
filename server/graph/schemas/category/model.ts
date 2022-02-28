@@ -6,7 +6,7 @@ const categorySchema = new MSchema({
   id: { type: String, required: true, unique: true, },
   name: { type: String, required: true, unique: true, },
   parent_category_id: String,
-  posts: [{ type: Object, ref: 'Category', }],
+  posts: [{ type: mongoose.Types.ObjectId, ref: 'Category', }],
   created_at: { type: Number, required: true, default: Date.now, },
   created_unixtime: { type: Number, required: true, default: new Date(), },
   updated_at: { type: Number, required: true, default: Date.now, },

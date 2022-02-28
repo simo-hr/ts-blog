@@ -12,20 +12,23 @@ export type Admin = {
   accessToken: string
 }
 
-export type Post = {
+export type PostData = {
   id: string
   title: string
   content: string
   is_published: boolean
   published_at: Date
-  updated_at: Date
 }
+
+export type Post = PostData & Timestamp
 
 export type CategoryData = {
   id: string
   name: string
   parent_category_id?: string
-  updated_at: Date
 }
 
 export type Category = CategoryData & Timestamp
+export type PostRelCategory = Post & {
+  category: CategoryData
+}

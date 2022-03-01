@@ -1,6 +1,30 @@
 <template>
-  <div>
-    <NuxtPage />
+  <div id="wrapper" class="flex flex-row">
+    <div id="nav" class="bg-base-color text-white p-3">
+      <li>
+        <nuxt-link class="text-xl" to="/admin/signin">
+          signin
+        </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link class="text-xl" to="/posts/new">
+          new post
+        </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link class="text-xl" to="/posts">
+          post
+        </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link class="text-xl" to="/categories">
+          category
+        </nuxt-link>
+      </li>
+    </div>
+    <div id="main" class="flex-1 overflow-hidden">
+      <NuxtPage />
+    </div>
   </div>
 </template>
 
@@ -15,8 +39,7 @@ export default {
       },
       {
         name: 'viewport',
-        content:
-          'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no',
+        content: 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no',
       },
       process.env.NODE_ENV === 'production'
         ? {
@@ -33,3 +56,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+#wrapper {
+  min-height: 100vh;
+}
+</style>

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-base-color {
+  @apply text-sky-700
+}
+
+.bg-base-color {
+  @apply bg-sky-700
+}

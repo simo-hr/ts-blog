@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FormField, } from '@/types/form'
 import { RepositoryFactory, } from '@/api/gql/repositories'
 import { CategoryData, } from '@/types'
 import { BASE_PATH, } from '@/utils/const'
@@ -38,7 +39,7 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
 })
 
 const router = useRouter()
-const submitCategory = async () => {
+const submitForm = async () => {
   if (props.isEdit) {
     await RepositoryFactory.Category.updateCategory({
       id: state.form.id,
@@ -63,34 +64,35 @@ const submitCategory = async () => {
   }
   router.push(`${BASE_PATH}categories`)
 }
+
+const formFieldsRef = ref<FormField[]>()
+formFieldsRef.value = [
+  {
+    id: 'id',
+    name: 'id',
+    labelName: 'ID',
+    type: 'text',
+    value: state.form.id,
+    readonly: true,
+    isVisible: () => props.isEdit,
+  },
+  {
+    id: 'name',
+    name: 'name',
+    labelName: '名前',
+    value: state.form.name,
+    required: true,
+    type: 'text',
+  }
+]
 </script>
 
 <template>
   <div class="w-full max-w-xs">
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCategory">
-      <div v-if="isEdit" class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">カテゴリーID</label>
-        <input
-          id="id"
-          v-model="state.form.id"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          disabled
-          placeholder="category id"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">カテゴリー名</label>
-        <input
-          id="name"
-          v-model="state.form.name"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-          type="text"
-          placeholder="category name"
-        />
-      </div>
+    <form class="form" @submit.prevent="submitForm">
+      <OrganismForm v-model:form="state.form" :form-fields="formFieldsRef" />
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="parentCategoryId">親カテゴリー</label>
+        <label class="form-label" for="parentCategoryId">親カテゴリー</label>
         <select
           id="parentCategoryId"
           v-model="state.form.parent_category_id"

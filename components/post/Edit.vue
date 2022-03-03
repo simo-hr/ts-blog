@@ -50,33 +50,34 @@ if (typeof route.params?.id === 'string') {
 
 <template>
   <div>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitCategory">
+    <OrganismForm />
+    <form class="form" @submit.prevent="submitCategory">
       <div v-if="isEdit" class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">ポストID</label>
+        <label class="form-label" for="name">ポストID</label>
         <input
           id="id"
           v-model="state.form.id"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="form-input"
           disabled
           placeholder="category id"
         />
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">ポストタイトル</label>
+        <label class="form-label" for="title">ポストタイトル</label>
         <input
           id="title"
           v-model="state.form.title"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="form-input"
           required
           type="text"
         />
       </div>
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="category">親カテゴリー</label>
+        <label class="form-label" for="category">親カテゴリー</label>
         <select
           id="category"
           v-model="state.form.category"
-          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="form-select"
         >
           <option v-for="(category, index) in categoriesRef" :key="index" :value="category">
             {{ category.name }}
@@ -85,7 +86,7 @@ if (typeof route.params?.id === 'string') {
       </div>
       <div class="flex items-center justify-between">
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="create-or-update-button"
           type="submit"
         >
           {{ props.isEdit ? '更新' : '新規' }}

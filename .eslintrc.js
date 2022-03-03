@@ -29,6 +29,8 @@ module.exports = {
         functions: 'never',
       }
     ],
+    'vue/no-v-model-argument': 'off',
+    'vue/no-v-for-template-key': 'off',
     'vue/max-attributes-per-line': 'off',
     'no-unused-vars': 'off', // 使っていない変数を許可
     'vue/html-self-closing': 'off', // 空タグを許可する

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FormField, } from '@/types/form'
 import { RepositoryFactory, } from '@/api/gql/repositories'
 import { Post, Category, } from '@/types'
 
@@ -46,53 +47,44 @@ useAsyncData('data', async () => {
 if (typeof route.params?.id === 'string') {
   state.form = await RepositoryFactory.Post.getPost({ id: route.params.id, }).then(result => result.data.post)
 }
+
+const formFieldsRef = ref<FormField[]>()
+formFieldsRef.value = [
+  {
+    id: 'id',
+    name: 'id',
+    labelName: 'ID',
+    type: 'text',
+    value: state.form.id,
+    readonly: true,
+    isVisible: () => props.isEdit,
+  },
+  {
+    id: 'title',
+    name: 'title',
+    labelName: 'タイトル',
+    value: state.form.title,
+    required: true,
+    type: 'text',
+  }
+]
 </script>
 
 <template>
   <div>
-    <OrganismForm />
-    <form class="form" @submit.prevent="submitCategory">
-      <div v-if="isEdit" class="mb-4">
-        <label class="form-label" for="name">ポストID</label>
-        <input
-          id="id"
-          v-model="state.form.id"
-          class="form-input"
-          disabled
-          placeholder="category id"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="form-label" for="title">ポストタイトル</label>
-        <input
-          id="title"
-          v-model="state.form.title"
-          class="form-input"
-          required
-          type="text"
-        />
-      </div>
-      <div class="mb-6">
-        <label class="form-label" for="category">親カテゴリー</label>
-        <select
-          id="category"
-          v-model="state.form.category"
-          class="form-select"
-        >
-          <option v-for="(category, index) in categoriesRef" :key="index" :value="category">
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
+    <form class="form">
+      <OrganismForm v-model:form="state.form" :form-fields="formFieldsRef" />
+      <label class="form-label" for="category">親カテゴリー</label>
+      <select id="category" v-model="state.form.category" class="form-select">
+        <option v-for="(category, index) in categoriesRef" :key="index" :value="category">
+          {{ category.name }}
+        </option>
+      </select>
       <div class="flex items-center justify-between">
-        <button
-          class="create-or-update-button"
-          type="submit"
-        >
+        <button class="create-or-update-button" type="submit">
           {{ props.isEdit ? '更新' : '新規' }}
         </button>
       </div>
     </form>
-    <EditorInput :post-content="state.form.content" />
   </div>
 </template>

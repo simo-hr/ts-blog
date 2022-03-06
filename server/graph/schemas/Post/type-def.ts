@@ -7,9 +7,7 @@ const PostTypeDef = /* GraphQL */ `
     is_published: Boolean!
     published_at: Date
     category: Category
-    created_at: Float!
     created_unixtime: Float!
-    updated_at: Float!
     updated_unixtime: Float!
   }
 

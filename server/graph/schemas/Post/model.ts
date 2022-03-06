@@ -8,10 +8,8 @@ const postSchema = new MSchema({
   content: { type: String, required: true, },
   is_published: { type: Boolean, default: false, },
   category: { type: Object, ref: 'Category', },
-  published_at: { type: Date, default: Date.now, },
-  created_at: { type: Number, required: true, default: Date.now, },
+  published_unixtime: { type: Number, default: new Date(), },
   created_unixtime: { type: Number, required: true, default: new Date(), },
-  updated_at: { type: Number, required: true, default: Date.now, },
   updated_unixtime: { type: Number, required: true, default: new Date(), },
 })
 

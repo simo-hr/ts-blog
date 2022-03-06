@@ -1,7 +1,5 @@
 export type Timestamp = {
-  created_at: number
   created_unixtime: number
-  updated_at: number
   updated_unixtime: number
 }
 

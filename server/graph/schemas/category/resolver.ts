@@ -33,7 +33,6 @@ const CategoryResolver = {
           $set: {
             name: args.name,
             parent_category_id: args.parent_category_id,
-            updated_at: new Date(),
             updated_unixtime: Date.now,
           },
         },

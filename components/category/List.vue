@@ -69,10 +69,10 @@ const handleDeleteDoc = async (index) => {
             {{ category.name }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.created_at }}
+            {{ category.created_unixtime }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.updated_at }}
+            {{ category.updated_unixtime }}
           </td>
           <td class="border px-4 py-2">
             <nuxt-link :to="`/categories/edit/${category.id}`">

@@ -5,9 +5,7 @@ const GET_CATEGORY = (args) => {
       id
       name
       parent_category_id
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -21,9 +19,7 @@ const GET_CATEGORIES = () => {
       id
       name
       parent_category_id
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -38,9 +34,7 @@ const CREATE_CATEGORY = (args) => {
       name
       parent_category_id
       posts
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -53,9 +47,7 @@ const UPDATE_CATEGORY = (args) => {
       id
       name
       parent_category_id
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -68,9 +60,7 @@ const REMOVE_CATEGORY = (args) => {
       id
       name
       parent_category_id
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }

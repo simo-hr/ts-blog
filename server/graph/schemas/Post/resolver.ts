@@ -26,6 +26,7 @@ const PostResolver = {
         {
           $set: {
             title: args.title,
+            updated_unixtime: Date.now,
           },
         },
         { new: true, }

@@ -11,14 +11,10 @@ const GET_POST = (args) => {
         id
         name
         parent_category_id
-        created_at
         created_unixtime
-        updated_at
         updated_unixtime
       }
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -38,14 +34,10 @@ const GET_POSTS = () => {
         id
         name
         parent_category_id
-        created_at
         created_unixtime
-        updated_at
         updated_unixtime
       }
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }
@@ -64,14 +56,10 @@ const CREATE_POSTS = () => {
         id
         name
         parent_category_id
-        created_at
         created_unixtime
-        updated_at
         updated_unixtime
       }
-      created_at
       created_unixtime
-      updated_at
       updated_unixtime
     },
   }

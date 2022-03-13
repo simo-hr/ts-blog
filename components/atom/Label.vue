@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="labelProps.for" :class="`${labelProps.class} form-label`" :style="`${labelProps.labelStyle}`">
+    <label :for="labelProps.for" :class="`${labelProps.labelClass} form-label`" :style="`${labelProps.labelStyle}`">
       {{ labelName }}
     </label>
   </div>

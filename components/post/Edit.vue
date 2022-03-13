@@ -66,6 +66,22 @@ formFieldsRef.value = [
     value: state.form.title,
     required: true,
     type: 'text',
+  },
+  {
+    id: 'category',
+    name: 'category',
+    labelName: '親カテゴリー',
+    value: state.form.content,
+    required: true,
+    type: 'select',
+    selectItems: [
+      { id: '1', name: 'name1', },
+      { id: '2', name: 'name2', },
+      { id: '3', name: 'name3', }
+    ],
+    selectValue: 'id',
+    selectText: 'name',
+
   }
 ]
 </script>

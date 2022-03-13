@@ -18,6 +18,23 @@
           :label-style="field.labelStyle"
           @input="handleInput($event, field.name)"
         />
+        <MoleculeSelectSection
+          v-else-if="field.type === 'select'"
+          :id="field.id"
+          v-model:model-value="field.value"
+          :type="field.type"
+          :placeholder="field.placeholder"
+          :class="field.class"
+          :style="field.style"
+          :required="field.required"
+          :label-name="field.labelName"
+          :label-class="field.labelClass"
+          :label-style="field.labelStyle"
+          :select-items="field.selectItems"
+          :select-value="field.selectValue"
+          :select-text="field.selectText"
+          @input="handleInput($event, field.name)"
+        />
       </template>
     </div>
   </div>

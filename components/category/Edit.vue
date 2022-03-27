@@ -21,7 +21,7 @@ const state: State = reactive({
     id: '',
     name: '',
     parent_category_id: '',
-    updated_at: new Date(),
+    posts: [],
   },
 })
 
@@ -39,12 +39,15 @@ const categories = await RepositoryFactory.Category.getCategories().then((result
 })
 
 const router = useRouter()
-const submitForm = async () => {
+const submitForm = () => {
   if (props.isEdit) {
-    await RepositoryFactory.Category.updateCategory({
-      id: state.form.id,
-      name: state.form.name,
-      parent_category_id: state.form.parent_category_id,
+    RepositoryFactory.Category.updateCategory({
+      category: {
+        id: state.form.id,
+        name: state.form.name,
+        parent_category_id: state.form.parent_category_id,
+        posts: state.form.posts,
+      },
     }).then((result) => {
       if (result.error) {
         throw new Error(result.error.message)
@@ -52,9 +55,12 @@ const submitForm = async () => {
       return result.data.updateCategory
     })
   } else {
-    await RepositoryFactory.Category.createCategory({
-      name: state.form.name,
-      parent_category_id: state.form.parent_category_id,
+    RepositoryFactory.Category.createCategory({
+      category: {
+        name: state.form.name,
+        parent_category_id: state.form.parent_category_id,
+        posts: state.form.posts,
+      },
     }).then((result) => {
       if (result.error) {
         throw new Error(result.error.message)
@@ -108,7 +114,7 @@ formFieldsRef.value = [
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          {{ props.isEdit ? '更新' : '新規' }}
+          {{ props.isEdit ? '更新' : '登録' }}
         </button>
       </div>
     </form>

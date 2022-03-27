@@ -15,7 +15,8 @@ export type PostData = {
   title: string
   content: string
   is_published: boolean
-  published_at: Date
+  category_id?: string
+  published_at?: number
 }
 
 export type Post = PostData & Timestamp
@@ -24,6 +25,7 @@ export type CategoryData = {
   id: string
   name: string
   parent_category_id?: string
+  posts?: string[]
 }
 
 export type Category = CategoryData & Timestamp

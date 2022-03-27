@@ -1,12 +1,16 @@
+const commonStatement = `
+id
+name
+parent_category_id
+posts
+created_unixtime
+updated_unixtime
+`
 const GET_CATEGORY = (args) => {
   return `
   {
     category(${args}) {
-      id
-      name
-      parent_category_id
-      created_unixtime
-      updated_unixtime
+      ${commonStatement}
     },
   }
 `
@@ -26,42 +30,31 @@ const GET_CATEGORIES = () => {
 `
 }
 
-const CREATE_CATEGORY = (args) => {
+const CREATE_CATEGORY = () => {
   return `
-  mutation {
-    createCategory (${args}) {
-      id
-      name
-      parent_category_id
-      posts
-      created_unixtime
-      updated_unixtime
-    },
+  mutation ($category: CreateCategory) {
+    createCategory(category: $category) {
+      ${commonStatement}
+    }
   }
+
 `
 }
-const UPDATE_CATEGORY = (args) => {
+const UPDATE_CATEGORY = () => {
   return `
-  mutation {
-    updateCategory (${args}) {
-      id
-      name
-      parent_category_id
-      created_unixtime
-      updated_unixtime
-    },
+  mutation ($category: UpdateCategory) {
+    updateCategory(category: $category) {
+      ${commonStatement}
+    }
   }
+
 `
 }
 const REMOVE_CATEGORY = (args) => {
   return `
   mutation {
     removeCategory (${args}) {
-      id
-      name
-      parent_category_id
-      created_unixtime
-      updated_unixtime
+      ${commonStatement}
     },
   }
 `

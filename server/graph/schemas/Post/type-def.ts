@@ -1,26 +1,53 @@
 const PostTypeDef = /* GraphQL */ `
   type Post {
-    _id: ID!
+    id: String
+    title: String
+    content: String
+    is_published: Boolean
+    published_at: Float
+    category_id: String
+    created_unixtime: Float
+    updated_unixtime: Float
+  }
+
+  type Posts {
+    id: String
+    title: String
+    content: String
+    is_published: Boolean
+    published_at: Float
+    category: Category
+    created_unixtime: Float
+    updated_unixtime: Float
+  }
+
+  input CreatePost {
+    title: String!
+    content: String!
+    is_published: Boolean!
+    published_at: Float
+    category_id: String
+  }
+
+  input UpdatePost {
     id: String!
     title: String!
     content: String!
     is_published: Boolean!
-    published_at: Date
-    category: Category
-    created_unixtime: Float!
-    updated_unixtime: Float!
+    published_at: Float
+    category_id: String
   }
 
   # the schema allows the following query:
   type Query {
     post(id: String!): Post
-    posts: [Post]
+    posts: [Posts]
   }
 
   # this schema allows the following mutation:
   type Mutation {
-    createPost(title: String!, content: String!, is_published: Boolean, published_at: String, category_id: String): Post
-    updatePost(title: String!, content: String!, is_published: Boolean, published_at: String, category_id: String): Post
+    createPost(createPost: CreatePost): Post
+    updatePost(updatePost: UpdatePost): Post
     removePost(id: String!): Post
   }
 

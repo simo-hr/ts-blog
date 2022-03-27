@@ -1,12 +1,25 @@
 const CategoryTypeDef = /* GraphQL */ `
   type Category {
     _id: ID!
+    id: String
+    name: String
+    parent_category_id: String
+    posts: [String]
+    created_unixtime: Float
+    updated_unixtime: Float
+  }
+
+  input CreateCategory {
+    name: String!
+    parent_category_id: String
+    posts: [String]
+  }
+
+  input UpdateCategory {
     id: String!
     name: String!
     parent_category_id: String
-    posts: [Post]
-    created_unixtime: Float
-    updated_unixtime: Float
+    posts: [String]
   }
 
   # the schema allows the following query:
@@ -17,8 +30,8 @@ const CategoryTypeDef = /* GraphQL */ `
 
   # this schema allows the following mutation:
   type Mutation {
-    createCategory(name: String!, parent_category_id: String): Category
-    updateCategory(id: String!, name: String!, parent_category_id: String): Category
+    createCategory(category: CreateCategory): Category
+    updateCategory(category: UpdateCategory): Category
     removeCategory(id: String!): Category
   }
 

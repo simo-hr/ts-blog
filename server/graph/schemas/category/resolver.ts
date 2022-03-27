@@ -12,41 +12,33 @@ const CategoryResolver = {
     },
   },
   Mutation: {
-    createCategory (_, args: { name: string; parent_category_id?: string }) {
-      const category = new Category(args)
-      category.id = category._id.toString()
+    createCategory (_, args) {
+      console.log('args:', args)
+      const category = new Category(args.category)
       return category.save()
     },
-    async updateCategory (_, args: { id: string; name: string; parent_category_id?: string }) {
-      const category = await Category.findOne({ id: args.id, })
+    async updateCategory (_, args) {
+      const category = await Category.findOne({ id: args.category.id, })
 
       if (category == null) {
         throw new Error('cannot find category')
       }
-      if (category.parentCategoryIdIsMe(args.parent_category_id)) {
+      if (category.parentCategoryIdIsMyself(args.parent_category_id)) {
         throw new Error('cannot set self id in parent_category_id')
       }
 
-      return await Category.findByIdAndUpdate(
-        args.id,
+      const updatedCategory = await Category.findByIdAndUpdate(
+        args.category.id,
         {
-          $set: {
-            name: args.name,
-            parent_category_id: args.parent_category_id,
-            updated_unixtime: Date.now,
-          },
+          $set: args.category,
         },
         { new: true, }
       )
-        .then((category) => {
-          return category
-        })
-        .catch((error) => {
-          throw error
-        })
+
+      return updatedCategory
     },
-    async removeCategory (_, args) {
-      await Category.findByIdAndRemove(args.id)
+    removeCategory (_, args) {
+      return Category.findByIdAndRemove(args.id)
     },
   },
 }

@@ -20,11 +20,9 @@ const state: State = reactive({
     title: '',
     content: '',
     is_published: false,
-    published_at: new Date(),
+    published_at: 0,
     category: undefined,
-    created_at: 0,
     created_unixtime: 0,
-    updated_at: 0,
     updated_unixtime: 0,
   },
 })
@@ -81,7 +79,6 @@ formFieldsRef.value = [
     ],
     selectValue: 'id',
     selectText: 'name',
-
   }
 ]
 </script>

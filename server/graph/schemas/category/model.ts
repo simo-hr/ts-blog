@@ -3,15 +3,28 @@ import mongoose from 'mongoose'
 const MSchema = mongoose.Schema
 
 const categorySchema = new MSchema({
-  id: { type: String, required: true, unique: true, },
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    default () {
+      return this._id.toString()
+    },
+  },
   name: { type: String, required: true, unique: true, },
   parent_category_id: String,
-  posts: [{ type: mongoose.Types.ObjectId, ref: 'Category', }],
-  created_unixtime: { type: Number, required: true, default: new Date(), },
-  updated_unixtime: { type: Number, required: true, default: new Date(), },
+  posts: [{ type: mongoose.Types.ObjectId, ref: 'Post', }],
+  created_unixtime: { type: Number, required: true, default: new Date().getTime(), },
+  updated_unixtime: {
+    type: Number,
+    required: true,
+    default () {
+      return this.created_unixtime
+    },
+  },
 })
 
-categorySchema.methods.parentCategoryIdIsMe = function (parentCategoryId) {
+categorySchema.methods.parentCategoryIdIsMyself = function (parentCategoryId) {
   return this.id === parentCategoryId
 }
 

@@ -9,25 +9,20 @@ const PostResolver = {
     },
     posts () {
       const posts = Post.find()
+      Category.populate(posts, { path: 'category', })
       return posts
     },
   },
   Mutation: {
-    async createPost (_, args) {
+    createPost (_, args) {
       const post = new Post(args)
-      post.id = post._id.toString()
-      const category = await Category.findOne({ id: args.category_id, })
-      post.category = category
       return post.save()
     },
     updatePost (_, args) {
       const updatedPost = Post.findByIdAndUpdate(
         args.id,
         {
-          $set: {
-            title: args.title,
-            updated_unixtime: Date.now,
-          },
+          $set: args,
         },
         { new: true, }
       )

@@ -15,14 +15,14 @@ export default {
     const result = await gqlClient.query(gqls, {})
     return result
   },
-  async createCategory (variables: { name: string; parent_category_id?: string }) {
-    const gqls = getStatement(CREATE_CATEGORY, variables)
-    const result = await gqlClient.mutation(gqls, {})
+  async createCategory (variables) {
+    const gqls = CREATE_CATEGORY()
+    const result = await gqlClient.mutation(gqls, variables)
     return result
   },
-  async updateCategory (variables: { id: string; name: string; parent_category_id?: string }) {
-    const gqls = getStatement(UPDATE_CATEGORY, variables)
-    const result = await gqlClient.mutation(gqls, {})
+  async updateCategory (variables) {
+    const gqls = UPDATE_CATEGORY()
+    const result = await gqlClient.mutation(gqls, variables)
     return result
   },
   async removeCategory (variables: { id: string }) {

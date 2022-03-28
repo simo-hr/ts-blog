@@ -13,7 +13,6 @@ const CategoryResolver = {
   },
   Mutation: {
     createCategory (_, args) {
-      console.log('args:', args)
       const category = new Category(args.category)
       return category.save()
     },

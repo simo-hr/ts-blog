@@ -25,18 +25,8 @@ const state: State = reactive({
   },
 })
 
-if (typeof route.params?.id === 'string') {
-  state.form = await RepositoryFactory.Category.getCategory({ id: route.params.id, }).then(
-    result => result.data.category
-  )
-}
-
-const categories = await RepositoryFactory.Category.getCategories().then((result) => {
-  if (result.error) {
-    throw new Error(result.error.message)
-  }
-  return result.data.categories
-})
+const categoriesRef = ref()
+const formFieldsRef = ref<FormField[]>()
 
 const router = useRouter()
 const submitForm = () => {
@@ -71,44 +61,58 @@ const submitForm = () => {
   router.push(`${BASE_PATH}categories`)
 }
 
-const formFieldsRef = ref<FormField[]>()
-formFieldsRef.value = [
-  {
-    id: 'id',
-    name: 'id',
-    labelName: 'ID',
-    type: 'text',
-    value: state.form.id,
-    readonly: true,
-    isVisible: () => props.isEdit,
-  },
-  {
-    id: 'name',
-    name: 'name',
-    labelName: '名前',
-    value: state.form.name,
-    required: true,
-    type: 'text',
+const fetchData = async () => {
+  categoriesRef.value = await RepositoryFactory.Category.getCategories().then((result) => {
+    if (result.error) {
+      console.error(result.error)
+    }
+    return result.data.categories
+  })
+}
+
+useAsyncData('data', async () => {
+  if (typeof route.params?.id === 'string') {
+    state.form = await RepositoryFactory.Category.getCategory({ id: route.params.id, }).then(
+      result => result.data.category
+    )
   }
-]
+  await fetchData()
+  formFieldsRef.value = [
+    {
+      id: 'id',
+      name: 'id',
+      labelName: 'ID',
+      type: 'text',
+      value: state.form.id,
+      readonly: true,
+      isVisible: () => props.isEdit,
+    },
+    {
+      id: 'name',
+      name: 'name',
+      labelName: '名前',
+      value: state.form.name,
+      required: true,
+      type: 'text',
+    },
+    {
+      id: 'parentCategoryId',
+      name: 'parent_category_id',
+      labelName: '親カテゴリー',
+      value: state.form.parent_category_id,
+      type: 'select',
+      selectItems: categoriesRef.value,
+      selectText: 'name',
+      selectValue: 'id',
+    }
+  ]
+})
 </script>
 
 <template>
   <div class="w-full max-w-xs">
     <form class="form" @submit.prevent="submitForm">
       <OrganismForm v-model:form="state.form" :form-fields="formFieldsRef" />
-      <div class="mb-6">
-        <label class="form-label" for="parentCategoryId">親カテゴリー</label>
-        <select
-          id="parentCategoryId"
-          v-model="state.form.parent_category_id"
-          class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          <option v-for="(category, index) in categories" :key="index" :value="category.id">
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
       <div class="flex items-center justify-between">
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

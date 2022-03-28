@@ -15,6 +15,6 @@ export type FormField = {
   labelStyle?: string
   isVisible?: DecisionFunction
   selectItems?: any[]
-  selectValue?: string
+  selectValue?: any
   selectText?: string
 }

@@ -8,9 +8,7 @@ const postSchema = new MSchema({
     required: true,
     unique: true,
     default () {
-      if (this._id) {
-        return this._id.toStoring
-      }
+      return this._id.toString()
     },
   },
   title: { type: String, required: true, unique: true, },

@@ -10,17 +10,6 @@ const PostTypeDef = /* GraphQL */ `
     updated_unixtime: Float
   }
 
-  type Posts {
-    id: String
-    title: String
-    content: String
-    is_published: Boolean
-    published_at: Float
-    category: Category
-    created_unixtime: Float
-    updated_unixtime: Float
-  }
-
   input CreatePost {
     title: String!
     content: String!
@@ -41,13 +30,13 @@ const PostTypeDef = /* GraphQL */ `
   # the schema allows the following query:
   type Query {
     post(id: String!): Post
-    posts: [Posts]
+    posts: [Post]
   }
 
   # this schema allows the following mutation:
   type Mutation {
-    createPost(createPost: CreatePost): Post
-    updatePost(updatePost: UpdatePost): Post
+    createPost(post: CreatePost): Post
+    updatePost(post: UpdatePost): Post
     removePost(id: String!): Post
   }
 

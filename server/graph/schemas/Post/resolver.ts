@@ -1,4 +1,4 @@
-import Category from '../category/model'
+// import Category from '../category/model'
 import Post from './model'
 
 const PostResolver = {
@@ -9,20 +9,20 @@ const PostResolver = {
     },
     posts () {
       const posts = Post.find()
-      Category.populate(posts, { path: 'category', })
+      // Category.populate(posts, { path: 'category', })
       return posts
     },
   },
   Mutation: {
     createPost (_, args) {
-      const post = new Post(args)
+      const post = new Post(args.post)
       return post.save()
     },
     updatePost (_, args) {
       const updatedPost = Post.findByIdAndUpdate(
-        args.id,
+        args.post.id,
         {
-          $set: args,
+          $set: args.post,
         },
         { new: true, }
       )

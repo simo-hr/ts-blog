@@ -22,7 +22,7 @@ const CategoryResolver = {
       if (category == null) {
         throw new Error('cannot find category')
       }
-      if (category.parentCategoryIdIsMyself(args.parent_category_id)) {
+      if (category.parentCategoryIdIsMyself(args.category.parent_category_id)) {
         throw new Error('cannot set self id in parent_category_id')
       }
 

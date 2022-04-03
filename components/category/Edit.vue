@@ -26,37 +26,33 @@ const state: State = reactive({
 })
 
 const categoriesRef = ref()
-const formFieldsRef = ref<FormField[]>()
+const formFieldsRef = ref<FormField[]>([])
 
 const router = useRouter()
-const submitForm = () => {
+const submitForm = async () => {
   if (props.isEdit) {
-    RepositoryFactory.Category.updateCategory({
+    const resUpdate = await RepositoryFactory.Category.updateCategory({
       category: {
         id: state.form.id,
         name: state.form.name,
         parent_category_id: state.form.parent_category_id,
         posts: state.form.posts,
       },
-    }).then((result) => {
-      if (result.error) {
-        throw new Error(result.error.message)
-      }
-      return result.data.updateCategory
     })
+    if (resUpdate.error) {
+      throw new Error(resUpdate.error.message)
+    }
   } else {
-    RepositoryFactory.Category.createCategory({
+    const resCreate = await RepositoryFactory.Category.createCategory({
       category: {
         name: state.form.name,
         parent_category_id: state.form.parent_category_id,
         posts: state.form.posts,
       },
-    }).then((result) => {
-      if (result.error) {
-        throw new Error(result.error.message)
-      }
-      return result.data.createCategory
     })
+    if (resCreate.error) {
+      throw new Error(resCreate.error.message)
+    }
   }
   router.push(`${BASE_PATH}categories`)
 }

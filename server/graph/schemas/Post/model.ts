@@ -11,12 +11,31 @@ const postSchema = new MSchema({
       return this._id.toString()
     },
   },
-  title: { type: String, required: true, unique: true, },
-  content: { type: String, required: true, },
-  is_published: { type: Boolean, required: true, },
-  category_id: { type: mongoose.Types.ObjectId, ref: 'Category', },
-  published_unixtime: { type: Number, },
-  created_unixtime: { type: Number, required: true, default: new Date().getTime(), },
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  is_published: {
+    type: Boolean,
+    required: true,
+  },
+  category_id: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Category',
+  },
+  published_unixtime: {
+    type: Number,
+  },
+  created_unixtime: {
+    type: Number,
+    required: true,
+    default: new Date().getTime(),
+  },
   updated_unixtime: {
     type: Number,
     required: true,

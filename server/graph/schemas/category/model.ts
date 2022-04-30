@@ -11,10 +11,25 @@ const categorySchema = new MSchema({
       return this._id.toString()
     },
   },
-  name: { type: String, required: true, unique: true, },
-  parent_category_id: String,
-  posts: [{ type: mongoose.Types.ObjectId, ref: 'Post', }],
-  created_unixtime: { type: Number, required: true, default: new Date().getTime(), },
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  parent_category_id: {
+    type: String,
+  },
+  posts: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Post',
+    }
+  ],
+  created_unixtime: {
+    type: Number,
+    required: true,
+    default: new Date().getTime(),
+  },
   updated_unixtime: {
     type: Number,
     required: true,

@@ -1,23 +1,28 @@
-import Category from './model'
+import CategoryModel from './model'
 
 const CategoryResolver = {
   Query: {
-    category (_, { id, }: { id: string }) {
-      const category = Category.findOne({ id, })
+    category (
+      _,
+      args: {
+        id: string
+      }
+    ) {
+      const category = CategoryModel.findOne({ id: args.id, })
       return category
     },
     categories () {
-      const categories = Category.find()
+      const categories = CategoryModel.find()
       return categories
     },
   },
   Mutation: {
     createCategory (_, args) {
-      const category = new Category(args.category)
+      const category = new CategoryModel(args.category)
       return category.save()
     },
     async updateCategory (_, args) {
-      const category = await Category.findOne({ id: args.category.id, })
+      const category = await CategoryModel.findOne({ id: args.category.id, })
 
       if (category == null) {
         throw new Error('cannot find category')
@@ -26,7 +31,7 @@ const CategoryResolver = {
         throw new Error('cannot set self id in parent_category_id')
       }
 
-      const updatedCategory = await Category.findByIdAndUpdate(
+      const updatedCategory = await CategoryModel.findByIdAndUpdate(
         args.category.id,
         {
           $set: args.category,
@@ -37,7 +42,7 @@ const CategoryResolver = {
       return updatedCategory
     },
     removeCategory (_, args) {
-      return Category.findByIdAndRemove(args.id)
+      return CategoryModel.findByIdAndRemove(args.id)
     },
   },
 }

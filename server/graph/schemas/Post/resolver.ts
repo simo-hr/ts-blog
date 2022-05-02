@@ -1,25 +1,25 @@
-// import Category from '../category/model'
-import Post from './model'
+import { PostData, } from '../../../../types'
+import PostModel from './model'
 
 const PostResolver = {
   Query: {
-    post (_, { id, }) {
-      const post = Post.findOne({ id, })
+    post (_, args: { id: string }) {
+      const post = PostModel.findOne({ id: args.id, })
       return post
     },
     posts () {
-      const posts = Post.find()
+      const posts = PostModel.find()
       // Category.populate(posts, { path: 'category', })
       return posts
     },
   },
   Mutation: {
-    createPost (_, args) {
-      const post = new Post(args.post)
+    createPost (_, args: { post: Omit<PostData, 'id'> }) {
+      const post = new PostModel(args.post)
       return post.save()
     },
-    updatePost (_, args) {
-      const updatedPost = Post.findByIdAndUpdate(
+    updatePost (_, args: { post: PostData }) {
+      const updatedPost = PostModel.findByIdAndUpdate(
         args.post.id,
         {
           $set: args.post,
@@ -28,8 +28,8 @@ const PostResolver = {
       )
       return updatedPost
     },
-    async removeCategory (_, args) {
-      await Post.findByIdAndRemove(args.id)
+    async removeCategory (_, args: { id: string }) {
+      await PostModel.findByIdAndRemove(args.id)
     },
   },
 }

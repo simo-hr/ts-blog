@@ -1,3 +1,4 @@
+import { CategoryData, } from '../../../../types'
 import CategoryModel from './model'
 
 const CategoryResolver = {
@@ -17,11 +18,11 @@ const CategoryResolver = {
     },
   },
   Mutation: {
-    createCategory (_, args) {
+    createCategory (_, args: { category: Omit<CategoryData, 'id'> }) {
       const category = new CategoryModel(args.category)
       return category.save()
     },
-    async updateCategory (_, args) {
+    async updateCategory (_, args: { category: CategoryData }) {
       const category = await CategoryModel.findOne({ id: args.category.id, })
 
       if (category == null) {

@@ -8,7 +8,7 @@ export interface Category extends Id, TimeStamp {
   posts: string[]
 }
 
-const categorySchemaFields: Required<mongoose.SchemaDefinitionProperty<Category>> = {
+const categorySchemaFields: Required<mongoose.SchemaDefinition<Category>> = {
   ...idDefinition,
   name: {
     type: String,
@@ -28,12 +28,16 @@ const categorySchemaFields: Required<mongoose.SchemaDefinitionProperty<Category>
 }
 
 class CategoryWithMethods implements Category {
+  // eslint-disable-next-line no-useless-constructor
   constructor (
     public id: string,
     public name: string,
+    // eslint-disable-next-line camelcase
     public parent_category_id: string,
     public posts: string[],
+    // eslint-disable-next-line camelcase
     public created_unixtime: number,
+    // eslint-disable-next-line camelcase
     public updated_unixtime: number
   ) {}
 
@@ -50,6 +54,5 @@ export const categorySchema = new mongoose.Schema<ICategory>(categorySchemaField
 
 categorySchema.methods.parentCategoryIdIsMyself = CategoryWithMethods.prototype.parentCategoryIdIsMyself
 
-const CategoryModel: mongoose.Model<ICategory> =
-  mongoose.models.Category || mongoose.model('Category', categorySchema, 'categories')
+const CategoryModel = mongoose.model<ICategory>('Category', categorySchema, 'categories')
 export default CategoryModel

@@ -1,16 +1,16 @@
 import mongoose from 'mongoose'
 
-const MSchema = mongoose.Schema
+import { Id, TimeStamp, idDefinition, timeStampDefinition, } from '../common/plugins'
 
-const postSchema = new MSchema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-    default () {
-      return this._id.toString()
-    },
-  },
+export interface Post extends Id, TimeStamp {
+  title: string
+  content: string
+  category_id: mongoose.Types.ObjectId
+  published_unixtime: number
+}
+
+const postSchemaFields: Required<mongoose.SchemaDefinition<Post>> = {
+  ...idDefinition,
   title: {
     type: String,
     required: true,
@@ -20,31 +20,21 @@ const postSchema = new MSchema({
     type: String,
     required: true,
   },
-  is_published: {
-    type: Boolean,
-    required: true,
-  },
   category_id: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
   },
   published_unixtime: {
     type: Number,
   },
-  created_unixtime: {
-    type: Number,
-    required: true,
-    default: new Date().getTime(),
-  },
-  updated_unixtime: {
-    type: Number,
-    required: true,
-    default () {
-      return this.created_unixtime
-    },
-  },
+  ...timeStampDefinition,
+}
+
+export type IPost = Document
+
+export const postSchema = new mongoose.Schema<IPost>(postSchemaFields, {
+  versionKey: false,
 })
 
-const Post = mongoose.model('Post', postSchema)
-
-export default Post
+const PostModel = mongoose.model<IPost>('Post', postSchema, 'posts')
+export default PostModel

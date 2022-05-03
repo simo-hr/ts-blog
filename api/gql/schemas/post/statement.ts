@@ -4,8 +4,6 @@ title
 content
 is_published
 published_at
-created_unixtime
-updated_unixtime
 `
 const GET_POST = (args) => {
   return `
@@ -21,6 +19,8 @@ const GET_POSTS = () => {
   {
     posts {
       ${commonStatement}
+      created_unixtime
+      updated_unixtime
     },
   }
 `

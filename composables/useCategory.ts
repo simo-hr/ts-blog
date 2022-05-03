@@ -2,6 +2,19 @@ import { Category, CategoryData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
 
 export const useCategory = () => {
+  const categoryById = async (id: string): Promise<{ category: CategoryData; error: unknown }> => {
+    let category: Category
+    let error: unknown
+    const res = await RepositoryFactory.Category.getCategory({ id, })
+    if (res.error) {
+      error = res.error
+    } else {
+      category = res.data.category
+    }
+
+    return { category, error, }
+  }
+
   const categoryAll = async (): Promise<{ categories: Category[]; error: unknown }> => {
     let categories: Category[] = []
     let error: unknown
@@ -21,7 +34,6 @@ export const useCategory = () => {
     let category: CategoryData
     let error: unknown
     const resCategory = await RepositoryFactory.Category.createCategory({ category: _category, })
-    console.log('🚀 ~ resCategory', resCategory)
     if (resCategory.error) {
       error = resCategory.error
     } else {
@@ -31,7 +43,6 @@ export const useCategory = () => {
     return { category, error, }
   }
   const categoryUpdateOne = async (input: CategoryData): Promise<{ category: CategoryData; error: unknown }> => {
-    console.log('🚀 ~ input', input)
     let category: CategoryData
     let error: unknown
     const res = await RepositoryFactory.Category.updateCategory({ category: input, })
@@ -54,6 +65,7 @@ export const useCategory = () => {
   }
 
   return {
+    categoryById,
     categoryAll,
     categoryCreateOne,
     categoryUpdateOne,

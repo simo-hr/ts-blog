@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { FormField, } from '@/types/form'
-import { RepositoryFactory, } from '@/api/gql/repositories'
-import { CategoryData, } from '@/types'
+import { Category, CategoryData, } from '@/types'
 import { BASE_PATH, } from '@/utils/const'
 
 const route = useRoute()
@@ -25,7 +24,7 @@ const state: State = reactive({
   },
 })
 
-const categoriesRef = ref()
+const categoriesRef = ref<Category[]>([])
 const formFieldsRef = ref<FormField[]>([])
 
 const router = useRouter()
@@ -46,19 +45,22 @@ const submitForm = async () => {
 }
 
 const fetchData = async () => {
-  categoriesRef.value = await RepositoryFactory.Category.getCategories().then((result) => {
-    if (result.error) {
-      console.error(result.error)
-    }
-    return result.data.categories
-  })
+  const { categories, error, } = await useCategory().categoryAll()
+  if (error) {
+    console.log(error)
+    throw error
+  }
+  categoriesRef.value = categories
 }
 
 useAsyncData('data', async () => {
   if (typeof route.params?.id === 'string') {
-    state.form = await RepositoryFactory.Category.getCategory({ id: route.params.id, }).then(
-      result => result.data.category
-    )
+    const { category, error, } = await useCategory().categoryById(route.params.id)
+    if (error) {
+      console.log(error)
+      throw error
+    }
+    state.form = category
   }
   await fetchData()
   formFieldsRef.value = [

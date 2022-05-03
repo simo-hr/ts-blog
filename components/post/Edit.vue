@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { FormField, } from '@/types/form'
-import { RepositoryFactory, } from '@/api/gql/repositories'
 import { PostData, Category, } from '@/types'
 import { BASE_PATH, } from '@/utils/const'
 
@@ -32,49 +31,40 @@ const formFieldsRef = ref<FormField[]>()
 const categoriesRef = ref<Category[]>()
 
 const submitForm = async () => {
-  if (props.isEdit) {
-    const resUpdatePost = await RepositoryFactory.Post.updatePost({
-      category: {
-        id: state.form.id,
-        title: state.form.title,
-        content: state.form.content,
-        is_published: state.form.is_published,
-        category_id: state.form.category_id,
-        published_at: state.form.published_at,
-      },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { post, error, } = props.isEdit
+    ? await usePost().postUpdateOne(state.form)
+    : await usePost().postCreateOne({
+      title: state.form.title,
+      content: state.form.content,
+      is_published: state.form.is_published,
+      category_id: state.form.category_id,
+      published_at: state.form.published_at,
     })
-    if (resUpdatePost.error) {
-      throw new Error(resUpdatePost.error.message)
-    }
-  } else {
-    const resCreatePost = await RepositoryFactory.Post.createPost({
-      post: {
-        title: state.form.title,
-        content: state.form.content,
-        is_published: state.form.is_published,
-        category_id: state.form.category_id,
-        published_at: state.form.published_at,
-      },
-    })
-    if (resCreatePost.error) {
-      throw new Error(resCreatePost.error.message)
-    }
+  if (error) {
+    console.log(error)
+    throw error
   }
   router.push(`${BASE_PATH}posts`)
 }
 
 const fetchData = async () => {
-  categoriesRef.value = await RepositoryFactory.Category.getCategories().then((result) => {
-    if (result.error) {
-      console.error(result.error)
-    }
-    return result.data.categories
-  })
+  const { categories, error, } = await useCategory().categoryAll()
+  if (error) {
+    console.log(error)
+    throw error
+  }
+  categoriesRef.value = categories
 }
 
 useAsyncData('data', async () => {
   if (typeof route.params?.id === 'string') {
-    state.form = await RepositoryFactory.Post.getPost({ id: route.params.id, }).then(result => result.data.post)
+    const { post, error, } = await usePost().postById(route.params.id)
+    if (error) {
+      console.log(error)
+      throw error
+    }
+    state.form = post
   }
   await fetchData()
   formFieldsRef.value = [

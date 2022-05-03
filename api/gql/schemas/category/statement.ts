@@ -3,8 +3,6 @@ id
 name
 parent_category_id
 posts
-created_unixtime
-updated_unixtime
 `
 const GET_CATEGORY = (args) => {
   return `
@@ -20,9 +18,7 @@ const GET_CATEGORIES = () => {
   return `
   {
     categories {
-      id
-      name
-      parent_category_id
+      ${commonStatement}
       created_unixtime
       updated_unixtime
     },

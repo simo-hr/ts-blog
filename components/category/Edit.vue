@@ -30,29 +30,17 @@ const formFieldsRef = ref<FormField[]>([])
 
 const router = useRouter()
 const submitForm = async () => {
-  if (props.isEdit) {
-    const resUpdate = await RepositoryFactory.Category.updateCategory({
-      category: {
-        id: state.form.id,
-        name: state.form.name,
-        parent_category_id: state.form.parent_category_id,
-        posts: state.form.posts,
-      },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { category, error, } = props.isEdit
+    ? await useCategory().categoryUpdateOne(state.form)
+    : await useCategory().categoryCreateOne({
+      name: state.form.name,
+      parent_category_id: state.form.parent_category_id,
+      posts: state.form.posts,
     })
-    if (resUpdate.error) {
-      throw new Error(resUpdate.error.message)
-    }
-  } else {
-    const resCreate = await RepositoryFactory.Category.createCategory({
-      category: {
-        name: state.form.name,
-        parent_category_id: state.form.parent_category_id,
-        posts: state.form.posts,
-      },
-    })
-    if (resCreate.error) {
-      throw new Error(resCreate.error.message)
-    }
+  if (error) {
+    console.log(error)
+    throw error
   }
   router.push(`${BASE_PATH}categories`)
 }

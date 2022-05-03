@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { RepositoryFactory, } from '@/api/gql/repositories'
+import { useCategory, } from '../../composables/useCategory'
 import { Category, } from '@/types'
 
 const categoriesRef = ref<Category[]>()
 
 const fetchData = async () => {
-  categoriesRef.value = await RepositoryFactory.Category.getCategories().then(result => result.data.categories)
+  const { categories, error, } = await useCategory().categoryAll()
+  if (error) {
+    console.log(error)
+    throw error
+  }
+  categoriesRef.value = categories
 }
 
 useAsyncData('data', async () => {
@@ -13,9 +18,11 @@ useAsyncData('data', async () => {
 })
 
 const handleDeleteDoc = async (index) => {
-  await RepositoryFactory.Category.removeCategory({
-    id: categoriesRef.value[index].id,
-  })
+  const { error, } = await useCategory().categoryDelete(categoriesRef.value[index].id)
+  if (error) {
+    console.log(error)
+    throw error
+  }
   await fetchData()
 }
 </script>

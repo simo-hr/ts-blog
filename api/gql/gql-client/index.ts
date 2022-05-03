@@ -8,6 +8,7 @@ const gqlClient = {
     const config = useRuntimeConfig()
     return createClient({
       url: config.GRAPHQL_ENDPOINT,
+      maskTypename: true,
       fetchOptions: () => {
         const token = cookies.get('access_token') || 'aaaa'
         return {

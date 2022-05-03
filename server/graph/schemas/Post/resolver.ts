@@ -28,8 +28,8 @@ const PostResolver = {
       )
       return updatedPost
     },
-    async removeCategory (_, args: { id: string }) {
-      await PostModel.findByIdAndRemove(args.id)
+    async removePost (_, args: { id: string }) {
+      return await PostModel.findByIdAndRemove(args.id)
     },
   },
 }

@@ -1,11 +1,11 @@
-export const getValue = (key: string, object: Object) => {
+export const getValue = (key: string, object: object) => {
   const value = key.split('.').reduce(function (p, prop) {
     return p[prop]
   }, object)
   return value
 }
 
-export const createObject = (keys: Array<string>, value: any) => {
+export const createObject = (keys: string[], value: unknown) => {
   if (!keys.length) {
     return value
   }

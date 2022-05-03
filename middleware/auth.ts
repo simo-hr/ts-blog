@@ -8,9 +8,9 @@ export default defineNuxtRouteMiddleware(async () => {
     const result = await RepositoryFactory.Admin.checkAccessToken({ accessToken, })
     if (!result || result.error?.message) {
       removeAdmin()
-      return navigateTo({ path: `${BASE_PATH}admin/signin`, })
+      return navigateTo({ path: `${BASE_PATH}/admin/signin`, })
     }
   } else {
-    return navigateTo({ path: `${BASE_PATH}admin/signin`, })
+    return navigateTo({ path: `${BASE_PATH}/admin/signin`, })
   }
 })

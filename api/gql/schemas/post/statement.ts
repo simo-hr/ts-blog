@@ -1,4 +1,4 @@
-const commonStatement = `
+const commonStatement = /* GraphQL */ `
 id
 title
 content
@@ -6,7 +6,7 @@ is_published
 published_at
 `
 const GET_POST = (args) => {
-  return `
+  return /* GraphQL */ `
   {
     post(${args}) {
       ${commonStatement}
@@ -15,7 +15,7 @@ const GET_POST = (args) => {
 `
 }
 const GET_POSTS = () => {
-  return `
+  return /* GraphQL */ `
   {
     posts {
       ${commonStatement}
@@ -26,7 +26,7 @@ const GET_POSTS = () => {
 `
 }
 const CREATE_POST = () => {
-  return `
+  return /* GraphQL */ `
   mutation ($post: CreatePost) {
     createPost(post: $post) {
       ${commonStatement}
@@ -35,7 +35,7 @@ const CREATE_POST = () => {
 `
 }
 const UPDATE_POST = () => {
-  return `
+  return /* GraphQL */ `
   mutation ($post: UpdatePost) {
     updatePost(post: $post) {
       ${commonStatement}
@@ -44,10 +44,10 @@ const UPDATE_POST = () => {
 
 `
 }
-const REMOVE_POST = (args) => {
-  return `
-  mutation {
-    removeCategory (${args}) {
+const REMOVE_POST = () => {
+  return /* GraphQL */ `
+  mutation ($id: String!) {
+    removePost(id: $id) {
       ${commonStatement}
     },
   }

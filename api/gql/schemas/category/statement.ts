@@ -1,11 +1,11 @@
-const commonStatement = `
+const commonStatement = /* GraphQL */ `
 id
 name
 parent_category_id
 posts
 `
 const GET_CATEGORY = (args) => {
-  return `
+  return /* GraphQL */ `
   {
     category(${args}) {
       ${commonStatement}
@@ -15,7 +15,7 @@ const GET_CATEGORY = (args) => {
 }
 
 const GET_CATEGORIES = () => {
-  return `
+  return /* GraphQL */ `
   {
     categories {
       ${commonStatement}
@@ -27,7 +27,7 @@ const GET_CATEGORIES = () => {
 }
 
 const CREATE_CATEGORY = () => {
-  return `
+  return /* GraphQL */ `
   mutation ($category: CreateCategory) {
     createCategory(category: $category) {
       ${commonStatement}
@@ -37,7 +37,7 @@ const CREATE_CATEGORY = () => {
 `
 }
 const UPDATE_CATEGORY = () => {
-  return `
+  return /* GraphQL */ `
   mutation ($category: UpdateCategory) {
     updateCategory(category: $category) {
       ${commonStatement}
@@ -47,7 +47,7 @@ const UPDATE_CATEGORY = () => {
 `
 }
 const REMOVE_CATEGORY = (args) => {
-  return `
+  return /* GraphQL */ `
   mutation {
     removeCategory (${args}) {
       ${commonStatement}

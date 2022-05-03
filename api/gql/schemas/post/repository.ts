@@ -16,18 +16,15 @@ export default {
     return result
   },
   async createPost (variables) {
-    const gqls = CREATE_POST()
-    const result = await gqlClient.mutation(gqls, variables)
+    const result = await gqlClient.mutation(CREATE_POST(), variables)
     return result
   },
   async updatePost (variables) {
-    const gqls = UPDATE_POST()
-    const result = await gqlClient.mutation(gqls, variables)
+    const result = await gqlClient.mutation(UPDATE_POST(), variables)
     return result
   },
   async removePost (variables: { id: string }) {
-    const gqls = getStatement(REMOVE_POST, variables)
-    const result = await gqlClient.mutation(gqls, {})
+    const result = await gqlClient.mutation(REMOVE_POST(), variables)
     return result
   },
 }

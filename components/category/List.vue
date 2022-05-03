@@ -2,7 +2,7 @@
 import { useCategory, } from '../../composables/useCategory'
 import { Category, } from '@/types'
 
-const categoriesRef = ref<Category[]>()
+const categoriesRef = ref<Category[]>([])
 
 const fetchData = async () => {
   const { categories, error, } = await useCategory().categoryAll()
@@ -17,7 +17,7 @@ useAsyncData('data', async () => {
   await fetchData()
 })
 
-const handleDeleteDoc = async (index) => {
+const deleteCategory = async (index) => {
   const { error, } = await useCategory().categoryDelete(categoriesRef.value[index].id)
   if (error) {
     console.log(error)
@@ -90,7 +90,7 @@ const handleDeleteDoc = async (index) => {
             </nuxt-link>
           </td>
           <td class="border px-4 py-2">
-            <button type="button" @click="handleDeleteDoc(index)">
+            <button type="button" @click="deleteCategory(index)">
               <i class="" role="img" aria-label="削除する"></i>
               削除する
             </button>

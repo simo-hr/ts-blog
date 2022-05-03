@@ -41,7 +41,7 @@ const submitForm = async () => {
     console.log(error)
     throw error
   }
-  router.push(`${BASE_PATH}categories`)
+  router.push(`${BASE_PATH}/categories`)
 }
 
 const fetchData = async () => {

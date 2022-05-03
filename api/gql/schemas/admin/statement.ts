@@ -1,5 +1,5 @@
 const SIGN_IN = (args) => {
-  return `
+  return /* GraphQL */ `
   mutation {
     signIn(${args}) {
       id
@@ -12,7 +12,7 @@ const SIGN_IN = (args) => {
 }
 
 const SIGN_UP = (args) => {
-  return `
+  return /* GraphQL */ `
   mutation {
     signUp(${args}) {
       id
@@ -25,7 +25,7 @@ const SIGN_UP = (args) => {
 }
 
 const CHECK_ACCESS_TOKEN = (args) => {
-  return `
+  return /* GraphQL */ `
   mutation {
     checkAccessToken(${args}) {
       id

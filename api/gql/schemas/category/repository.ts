@@ -1,5 +1,6 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
+import { CategoryData, } from '../../../../types'
 import { GET_CATEGORY, GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, REMOVE_CATEGORY, } from './statement'
 
 export default {
@@ -15,12 +16,12 @@ export default {
     const result = await gqlClient.query(gqls, {})
     return result
   },
-  async createCategory (variables) {
+  async createCategory (variables: { category: Omit<CategoryData, 'id'> }) {
     const gqls = CREATE_CATEGORY()
     const result = await gqlClient.mutation(gqls, variables)
     return result
   },
-  async updateCategory (variables) {
+  async updateCategory (variables: { category: CategoryData }) {
     const gqls = UPDATE_CATEGORY()
     const result = await gqlClient.mutation(gqls, variables)
     return result

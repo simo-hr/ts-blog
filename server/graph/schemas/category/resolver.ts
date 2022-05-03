@@ -3,12 +3,7 @@ import CategoryModel from './model'
 
 const CategoryResolver = {
   Query: {
-    category (
-      _,
-      args: {
-        id: string
-      }
-    ) {
+    category (_, args: { id: string }) {
       const category = CategoryModel.findOne({ id: args.id, })
       return category
     },
@@ -43,8 +38,8 @@ const CategoryResolver = {
 
       return updatedCategory
     },
-    removeCategory (_, args) {
-      return CategoryModel.findByIdAndRemove(args.id)
+    async removeCategory (_, args: { id: string }) {
+      return await CategoryModel.findByIdAndRemove(args.id)
     },
   },
 }

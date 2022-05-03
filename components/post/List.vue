@@ -1,15 +1,29 @@
 <script setup lang="ts">
-import { RepositoryFactory, } from '@/api/gql/repositories'
 import { Post, } from '@/types'
 
-const postsRef = ref<Post[]>()
+const postsRef = ref<Post[]>([])
 
 const fetchData = async () => {
-  postsRef.value = await RepositoryFactory.Post.getPosts().then(result => result.data.posts)
+  const { posts, error, } = await usePost().postAll()
+  if (error) {
+    console.log(error)
+    throw error
+  }
+  postsRef.value = posts
 }
+
 useAsyncData('data', async () => {
   await fetchData()
 })
+
+const deletePost = async (index) => {
+  const { error, } = await usePost().postDelete(postsRef.value[index].id)
+  if (error) {
+    console.log(error)
+    throw error
+  }
+  await fetchData()
+}
 </script>
 
 <template>
@@ -73,10 +87,10 @@ useAsyncData('data', async () => {
             {{ post.published_at }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.created_at }}
+            {{ post.created_unixtime }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.updated_at }}
+            {{ post.updated_unixtime }}
           </td>
           <td class="border px-4 py-2">
             <nuxt-link :to="`/posts/edit/${post.id}`">
@@ -87,7 +101,7 @@ useAsyncData('data', async () => {
             </nuxt-link>
           </td>
           <td class="border px-4 py-2">
-            <button type="button" @click="handleDeleteDoc(index)">
+            <button type="button" @click="deletePost(index)">
               <i class="" role="img" aria-label="削除する"></i>
               削除する
             </button>

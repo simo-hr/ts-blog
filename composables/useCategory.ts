@@ -1,7 +1,15 @@
 import { Category, CategoryData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
 
-export const useCategory = () => {
+type UseCategory = () => {
+  categoryById: (id: string) => Promise<{ category: CategoryData; error: unknown }>
+  categoryAll: () => Promise<{ categories: Category[]; error: unknown }>
+  categoryCreateOne: (_category: Omit<CategoryData, 'id'>) => Promise<{ category: CategoryData; error: unknown }>
+  categoryUpdateOne: (input: CategoryData) => Promise<{ category: CategoryData; error: unknown }>
+  categoryDelete: (id: string) => Promise<{ error: unknown }>
+}
+
+export const useCategory: UseCategory = () => {
   const categoryById = async (id: string): Promise<{ category: CategoryData; error: unknown }> => {
     let category: Category
     let error: unknown

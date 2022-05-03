@@ -1,8 +1,16 @@
 import { Post, PostData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
 
-export const usePost = () => {
-  const postById = async (id: string): Promise<{ post: Post; error: unknown }> => {
+type UsePost = () => {
+  postById: (id: string) => Promise<{ post: PostData; error: unknown }>
+  postAll: () => Promise<{ posts: Post[]; error: unknown }>
+  postCreateOne: (_post: Omit<PostData, 'id'>) => Promise<{ post: PostData; error: unknown }>
+  postUpdateOne: (input: PostData) => Promise<{ post: PostData; error: unknown }>
+  postDelete: (id: string) => Promise<{ error: unknown }>
+}
+
+export const usePost: UsePost = () => {
+  const postById = async (id: string): Promise<{ post: PostData; error: unknown }> => {
     let post: Post
     let error: unknown
     const res = await RepositoryFactory.Post.getPost({ id, })

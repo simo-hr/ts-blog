@@ -4,15 +4,15 @@ import { GET_POST, GET_POSTS, CREATE_POST, UPDATE_POST, REMOVE_POST, } from './s
 
 export default {
   async getPost (variables: { id: string }) {
-    const gqls = getStatement(GET_POST, variables)
-    const result = await gqlClient.query(gqls, {
+    const gqlStatement = getStatement(GET_POST, variables)
+    const result = await gqlClient.query(gqlStatement, {
       ...variables,
     })
     return result
   },
   async getPosts () {
-    const gqls = getStatement(GET_POSTS, {})
-    const result = await gqlClient.query(gqls, {})
+    const gqlStatement = getStatement(GET_POSTS, {})
+    const result = await gqlClient.query(gqlStatement, {})
     return result
   },
   async createPost (variables) {

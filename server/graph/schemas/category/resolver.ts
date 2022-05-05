@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { CategoryData, Category, } from '../../../../types'
 import CategoryModel from './model'
-export type SearchQuerySort<T> = { [Property in keyof Partial<T>]: -1 | 1 }
+import { CategoryData, Category, } from '@/types'
+import { SearchQuery, } from '@/types/graphql'
 
 const CategoryResolver = {
   Query: {
@@ -9,9 +9,8 @@ const CategoryResolver = {
       const category = CategoryModel.findOne({ id: args.id, })
       return category
     },
-    async categories (_, { limit, sort, }: { limit?: number; sort?: SearchQuerySort<Category> }) {
-      console.log('🚀 ~ searchQuery')
-      const searchQuery: mongoose.PipelineStage[] = [
+    async searchCategories (_, { limit, sort, }: SearchQuery<Category>) {
+      const pipeLines: mongoose.PipelineStage[] = [
         {
           $lookup: {
             from: 'categories',
@@ -32,7 +31,7 @@ const CategoryResolver = {
         { $limit: limit || 100, },
         { $sort: sort || { created_unixtime: -1, }, }
       ]
-      const categories = await CategoryModel.aggregate(searchQuery).allowDiskUse(true).exec()
+      const categories = await CategoryModel.aggregate(pipeLines).allowDiskUse(true).exec()
       return categories
     },
   },

@@ -6,8 +6,7 @@ import { unixtimeToFormatDatetime, } from '@/utils/functions/day'
 const categoriesRef = ref<Category[]>([])
 
 const fetchData = async () => {
-  const { categories, error, } = await useCategory().categoryAll({
-    limit: 2,
+  const { categories, error, } = await useCategory().categorySearch({
     sort: { updated_unixtime: -1, },
   })
   if (error) {
@@ -15,7 +14,6 @@ const fetchData = async () => {
     throw error
   }
   categoriesRef.value = categories
-  console.log('🚀 ~ categories', categories)
 }
 
 useAsyncData('data', async () => {

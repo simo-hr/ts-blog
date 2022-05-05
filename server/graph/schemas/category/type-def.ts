@@ -33,7 +33,7 @@ const CategoryTypeDef = /* GraphQL */ `
   # the schema allows the following query:
   type Query {
     category(id: String!): Category
-    categories(limit: Int, sort: CategorySort): [Category]
+    searchCategories(limit: Int, sort: CategorySort): [Category]
   }
 
   # this schema allows the following mutation:

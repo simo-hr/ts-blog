@@ -1,16 +1,10 @@
 import { Category, CategoryData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
-import { SearchQuerySort, } from '@/server/graph/schemas/category/resolver'
+import { SearchQuery, } from '@/types/graphql'
 
 type UseCategory = () => {
   categoryById: (id: string) => Promise<{ category: CategoryData; error: unknown }>
-  categoryAll: ({
-    limit,
-    sort,
-  }: {
-    limit?: number
-    sort?: SearchQuerySort<Category>
-  }) => Promise<{ categories: Category[]; error: unknown }>
+  categorySearch: ({ limit, sort, }?: SearchQuery<Category>) => Promise<{ categories: Category[]; error: unknown }>
   categoryCreateOne: (_category: Omit<CategoryData, 'id'>) => Promise<{ category: CategoryData; error: unknown }>
   categoryUpdateOne: (input: CategoryData) => Promise<{ category: CategoryData; error: unknown }>
   categoryDelete: (id: string) => Promise<{ error: unknown }>
@@ -30,23 +24,20 @@ export const useCategory: UseCategory = () => {
     return { category, error, }
   }
 
-  const categoryAll = async ({
+  const categorySearch = async ({
     limit,
     sort,
-  }: {
-    limit?: number
-    sort?: SearchQuerySort<Category>
-  }): Promise<{ categories: Category[]; error: unknown }> => {
+  }: SearchQuery<Category>): Promise<{ categories: Category[]; error: unknown }> => {
     let categories: Category[] = []
     let error: unknown
-    const resCategories = await RepositoryFactory.Category.getCategories({
+    const resCategories = await RepositoryFactory.Category.searchCategories({
       limit,
       sort,
     })
     if (resCategories.error) {
       error = resCategories.error
     } else {
-      categories = resCategories.data.categories
+      categories = resCategories.data.searchCategories
     }
 
     return { categories, error, }
@@ -90,7 +81,7 @@ export const useCategory: UseCategory = () => {
 
   return {
     categoryById,
-    categoryAll,
+    categorySearch,
     categoryCreateOne,
     categoryUpdateOne,
     categoryDelete,

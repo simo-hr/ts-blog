@@ -45,7 +45,7 @@ const submitForm = async () => {
 }
 
 const fetchData = async () => {
-  const { categories, error, } = await useCategory().categoryAll()
+  const { categories, error, } = await useCategory().categorySearch()
   if (error) {
     console.log(error)
     throw error

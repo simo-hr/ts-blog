@@ -15,10 +15,10 @@ const GET_CATEGORY = (args) => {
 `
 }
 
-const GET_CATEGORIES = () => {
+const SEARCH_CATEGORIES = () => {
   return /* GraphQL */ `
   query ($limit: Int, $sort: CategorySort) {
-  categories(limit: $limit, sort: $sort) {
+    searchCategories(limit: $limit, sort: $sort) {
     ${commonStatement}
     parent_category {
       id
@@ -64,4 +64,4 @@ const REMOVE_CATEGORY = (args) => {
   }
 `
 }
-export { GET_CATEGORY, GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, REMOVE_CATEGORY, }
+export { GET_CATEGORY, SEARCH_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, REMOVE_CATEGORY, }

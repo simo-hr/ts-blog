@@ -4,6 +4,7 @@ const CategoryTypeDef = /* GraphQL */ `
     id: String
     name: String
     parent_category_id: String
+    parent_category: Category
     posts: [String]
     created_unixtime: Float
     updated_unixtime: Float
@@ -22,10 +23,17 @@ const CategoryTypeDef = /* GraphQL */ `
     posts: [String]
   }
 
+  input CategorySort {
+    id: Int
+    name: Int
+    created_unixtime: Int
+    updated_unixtime: Int
+  }
+
   # the schema allows the following query:
   type Query {
     category(id: String!): Category
-    categories: [Category]
+    categories(limit: Int, sort: CategorySort): [Category]
   }
 
   # this schema allows the following mutation:

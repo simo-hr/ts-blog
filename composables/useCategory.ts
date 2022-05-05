@@ -1,9 +1,16 @@
 import { Category, CategoryData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
+import { SearchQuerySort, } from '@/server/graph/schemas/category/resolver'
 
 type UseCategory = () => {
   categoryById: (id: string) => Promise<{ category: CategoryData; error: unknown }>
-  categoryAll: () => Promise<{ categories: Category[]; error: unknown }>
+  categoryAll: ({
+    limit,
+    sort,
+  }: {
+    limit?: number
+    sort?: SearchQuerySort<Category>
+  }) => Promise<{ categories: Category[]; error: unknown }>
   categoryCreateOne: (_category: Omit<CategoryData, 'id'>) => Promise<{ category: CategoryData; error: unknown }>
   categoryUpdateOne: (input: CategoryData) => Promise<{ category: CategoryData; error: unknown }>
   categoryDelete: (id: string) => Promise<{ error: unknown }>
@@ -23,10 +30,19 @@ export const useCategory: UseCategory = () => {
     return { category, error, }
   }
 
-  const categoryAll = async (): Promise<{ categories: Category[]; error: unknown }> => {
+  const categoryAll = async ({
+    limit,
+    sort,
+  }: {
+    limit?: number
+    sort?: SearchQuerySort<Category>
+  }): Promise<{ categories: Category[]; error: unknown }> => {
     let categories: Category[] = []
     let error: unknown
-    const resCategories = await RepositoryFactory.Category.getCategories()
+    const resCategories = await RepositoryFactory.Category.getCategories({
+      limit,
+      sort,
+    })
     if (resCategories.error) {
       error = resCategories.error
     } else {

@@ -9,6 +9,7 @@ const GET_CATEGORY = (args) => {
   {
     category(${args}) {
       ${commonStatement}
+      parent_category_id
     },
   }
 `
@@ -16,13 +17,18 @@ const GET_CATEGORY = (args) => {
 
 const GET_CATEGORIES = () => {
   return /* GraphQL */ `
-  {
-    categories {
-      ${commonStatement}
-      created_unixtime
-      updated_unixtime
-    },
+  query ($limit: Int, $sort: CategorySort) {
+  categories(limit: $limit, sort: $sort) {
+    ${commonStatement}
+    parent_category {
+      id
+      name
+      parent_category_id
+    }
+    created_unixtime
+    updated_unixtime
   }
+}
 `
 }
 
@@ -31,6 +37,7 @@ const CREATE_CATEGORY = () => {
   mutation ($category: CreateCategory) {
     createCategory(category: $category) {
       ${commonStatement}
+      parent_category_id
     }
   }
 
@@ -41,6 +48,7 @@ const UPDATE_CATEGORY = () => {
   mutation ($category: UpdateCategory) {
     updateCategory(category: $category) {
       ${commonStatement}
+      parent_category_id
     }
   }
 
@@ -51,6 +59,7 @@ const REMOVE_CATEGORY = (args) => {
   mutation {
     removeCategory (${args}) {
       ${commonStatement}
+      parent_category_id
     },
   }
 `

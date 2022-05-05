@@ -1,6 +1,7 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
-import { CategoryData, } from '../../../../types'
+import { CategoryData, Category, } from '../../../../types'
+import { SearchQuerySort, } from '../../../../server/graph/schemas/category/resolver'
 import { GET_CATEGORY, GET_CATEGORIES, CREATE_CATEGORY, UPDATE_CATEGORY, REMOVE_CATEGORY, } from './statement'
 
 export default {
@@ -11,9 +12,9 @@ export default {
     })
     return result
   },
-  async getCategories () {
-    const gqls = getStatement(GET_CATEGORIES, {})
-    const result = await gqlClient.query(gqls, {})
+  async getCategories (variables: { limit?: number; sort?: SearchQuerySort<Category> }) {
+    const gqls = GET_CATEGORIES()
+    const result = await gqlClient.query(gqls, variables)
     return result
   },
   async createCategory (variables: { category: Omit<CategoryData, 'id'> }) {

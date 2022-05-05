@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCategory, } from '../../composables/useCategory'
 import { Category, } from '@/types'
+import { unixtimeToFormatDatetime, } from '@/utils/functions/day'
 
 const categoriesRef = ref<Category[]>([])
 
@@ -76,10 +77,10 @@ const deleteCategory = async (index) => {
             {{ category.name }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.created_unixtime }}
+            {{ unixtimeToFormatDatetime(category.created_unixtime) }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.updated_unixtime }}
+            {{ unixtimeToFormatDatetime(category.updated_unixtime) }}
           </td>
           <td class="border px-4 py-2">
             <nuxt-link :to="`/categories/edit/${category.id}`">

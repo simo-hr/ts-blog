@@ -47,6 +47,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "bcryptjs": "^2.4.3",
     "cookie-universal": "^2.1.5",
+    "dayjs": "^1.11.1",
     "express": "^4.17.2",
     "express-graphql": "^0.12.0",
     "graphql-compose": "^9.0.6",

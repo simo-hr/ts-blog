@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Post, } from '@/types'
+import { unixtimeToFormatDatetime, } from '@/utils/functions/day'
 
 const postsRef = ref<Post[]>([])
 
@@ -87,10 +88,10 @@ const deletePost = async (index) => {
             {{ post.published_at }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.created_unixtime }}
+            {{ unixtimeToFormatDatetime(post.created_unixtime) }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.updated_unixtime }}
+            {{ unixtimeToFormatDatetime(post.updated_unixtime) }}
           </td>
           <td class="border px-4 py-2">
             <nuxt-link :to="`/posts/edit/${post.id}`">

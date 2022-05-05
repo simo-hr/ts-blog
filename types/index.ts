@@ -28,7 +28,10 @@ export type CategoryData = {
   posts?: string[]
 }
 
-export type Category = CategoryData & Timestamp
+export type Category = CategoryData &
+  Timestamp & {
+    parent_category: CategoryData
+  }
 export type PostRelCategory = Post & {
   category: CategoryData
 }

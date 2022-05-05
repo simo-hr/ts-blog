@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useCategory, } from '../../composables/useCategory'
 import { Category, } from '@/types'
 import { unixtimeToFormatDatetime, } from '@/utils/functions/day'
 
@@ -20,7 +19,7 @@ useAsyncData('data', async () => {
   await fetchData()
 })
 
-const deleteCategory = async (index) => {
+const deleteCategory = async (index: number) => {
   const { error, } = await useCategory().categoryDelete(categoriesRef.value[index].id)
   if (error) {
     console.log(error)
@@ -40,9 +39,6 @@ const deleteCategory = async (index) => {
         <tr>
           <th class="px-4 py-2">
             #
-          </th>
-          <th class="px-4 py-2">
-            カテゴリーID
           </th>
           <th class="px-4 py-2">
             親カテゴリー
@@ -70,10 +66,7 @@ const deleteCategory = async (index) => {
             {{ index + 1 }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.id }}
-          </td>
-          <td class="border px-4 py-2">
-            {{ category.parent_category_id }}
+            {{ category.parent_category.name }}
           </td>
           <td class="border px-4 py-2">
             {{ category.name }}

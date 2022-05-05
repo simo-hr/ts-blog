@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { FormField, } from '@/types/form'
 import { Category, CategoryData, } from '@/types'
+import { FormField, } from '@/types/form'
 import { BASE_PATH, } from '@/utils/const'
 
 const route = useRoute()
@@ -63,36 +63,37 @@ useAsyncData('data', async () => {
     state.form = category
   }
   await fetchData()
-  formFieldsRef.value = [
-    {
-      id: 'id',
-      name: 'id',
-      labelName: 'ID',
-      type: 'text',
-      value: state.form.id,
-      readonly: true,
-      isVisible: () => props.isEdit,
-    },
-    {
-      id: 'name',
-      name: 'name',
-      labelName: '名前',
-      value: state.form.name,
-      required: true,
-      type: 'text',
-    },
-    {
-      id: 'parentCategoryId',
-      name: 'parent_category_id',
-      labelName: '親カテゴリー',
-      value: state.form.parent_category_id,
-      type: 'select',
-      selectItems: categoriesRef.value,
-      selectText: 'name',
-      selectValue: 'id',
-    }
-  ]
 })
+
+formFieldsRef.value = [
+  {
+    id: 'id',
+    name: 'id',
+    labelName: 'ID',
+    type: 'text',
+    value: state.form.id,
+    readonly: true,
+    isVisible: () => props.isEdit,
+  },
+  {
+    id: 'name',
+    name: 'name',
+    labelName: '名前',
+    value: state.form.name,
+    required: true,
+    type: 'text',
+  },
+  {
+    id: 'parentCategoryId',
+    name: 'parent_category_id',
+    labelName: '親カテゴリー',
+    value: state.form.parent_category_id,
+    type: 'select',
+    selectItems: categoriesRef.value,
+    selectText: 'name',
+    selectValue: 'id',
+  }
+]
 </script>
 
 <template>

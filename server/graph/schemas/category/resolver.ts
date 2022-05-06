@@ -28,9 +28,13 @@ const CategoryResolver = {
         {
           $match: {},
         },
-        { $limit: limit || 100, },
         { $sort: sort || { created_unixtime: -1, }, }
       ]
+
+      if (limit) {
+        pipeLines.push({ $limit: limit, })
+      }
+
       const categories = await CategoryModel.aggregate(pipeLines).allowDiskUse(true).exec()
       return categories
     },

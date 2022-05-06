@@ -45,15 +45,13 @@ const submitForm = async () => {
 }
 
 const fetchData = async () => {
-  const { categories, error, } = await useCategory().categorySearch()
+  const { categories, error, } = await useCategory().categoryAll()
   if (error) {
     console.log(error)
     throw error
   }
   categoriesRef.value = categories
-}
 
-useAsyncData('data', async () => {
   if (typeof route.params?.id === 'string') {
     const { category, error, } = await useCategory().categoryById(route.params.id)
     if (error) {
@@ -62,38 +60,41 @@ useAsyncData('data', async () => {
     }
     state.form = category
   }
+
+  formFieldsRef.value = [
+    {
+      id: 'id',
+      name: 'id',
+      labelName: 'ID',
+      type: 'text',
+      value: state.form.id,
+      readonly: true,
+      isVisible: () => props.isEdit,
+    },
+    {
+      id: 'name',
+      name: 'name',
+      labelName: '名前',
+      value: state.form.name,
+      required: true,
+      type: 'text',
+    },
+    {
+      id: 'parentCategoryId',
+      name: 'parent_category_id',
+      labelName: '親カテゴリー',
+      value: state.form.parent_category_id,
+      type: 'select',
+      selectItems: categoriesRef.value,
+      selectText: 'name',
+      selectValue: 'id',
+    }
+  ]
+}
+
+useAsyncData('data', async () => {
   await fetchData()
 })
-
-formFieldsRef.value = [
-  {
-    id: 'id',
-    name: 'id',
-    labelName: 'ID',
-    type: 'text',
-    value: state.form.id,
-    readonly: true,
-    isVisible: () => props.isEdit,
-  },
-  {
-    id: 'name',
-    name: 'name',
-    labelName: '名前',
-    value: state.form.name,
-    required: true,
-    type: 'text',
-  },
-  {
-    id: 'parentCategoryId',
-    name: 'parent_category_id',
-    labelName: '親カテゴリー',
-    value: state.form.parent_category_id,
-    type: 'select',
-    selectItems: categoriesRef.value,
-    selectText: 'name',
-    selectValue: 'id',
-  }
-]
 </script>
 
 <template>

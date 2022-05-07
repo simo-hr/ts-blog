@@ -1,9 +1,11 @@
 import { Post, PostData, } from '../types/index'
 import { RepositoryFactory, } from '@/api/gql/repositories'
+import { SearchQuery, SearchQuerySort, } from '@/types/graphql'
 
 type UsePost = () => {
   postById: (id: string) => Promise<{ post: PostData; error: unknown }>
-  postAll: () => Promise<{ posts: Post[]; error: unknown }>
+  postSearch: ({ limit, sort, }?: SearchQuery<Post>) => Promise<{ posts: Post[]; error: unknown }>
+  postAll: (sort?: SearchQuerySort<Post>) => Promise<{ posts: Post[]; error: unknown }>
   postCreateOne: (_post: Omit<PostData, 'id'>) => Promise<{ post: PostData; error: unknown }>
   postUpdateOne: (input: PostData) => Promise<{ post: PostData; error: unknown }>
   postDelete: (id: string) => Promise<{ error: unknown }>
@@ -23,14 +25,32 @@ export const usePost: UsePost = () => {
     return { post, error, }
   }
 
-  const postAll = async (): Promise<{ posts: Post[]; error: unknown }> => {
+  const postAll = async (sort: SearchQuerySort<Post>): Promise<{ posts: Post[]; error: unknown }> => {
     let posts: Post[] = []
     let error: unknown
-    const resPosts = await RepositoryFactory.Post.getPosts()
+
+    const resPosts = await RepositoryFactory.Post.searchPosts({ sort, })
+    console.log('🚀 ~ resPosts', resPosts)
     if (resPosts.error) {
       error = resPosts.error
     } else {
-      posts = resPosts.data.posts
+      posts = resPosts.data.searchPosts
+    }
+
+    return { posts, error, }
+  }
+
+  const postSearch = async ({ limit, sort, }: SearchQuery<Post>): Promise<{ posts: Post[]; error: unknown }> => {
+    let posts: Post[] = []
+    let error: unknown
+    const resPosts = await RepositoryFactory.Post.searchPosts({
+      limit: limit || 100,
+      sort,
+    })
+    if (resPosts.error) {
+      error = resPosts.error
+    } else {
+      posts = resPosts.data.searchPosts
     }
 
     return { posts, error, }
@@ -72,6 +92,7 @@ export const usePost: UsePost = () => {
 
   return {
     postById,
+    postSearch,
     postAll,
     postCreateOne,
     postUpdateOne,

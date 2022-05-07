@@ -1,5 +1,7 @@
-import { PostData, } from '../../../../types'
+import mongoose from 'mongoose'
+import { PostData, Category, } from '../../../../types'
 import PostModel from './model'
+import { SearchQuery, } from '@/types/graphql'
 
 const PostResolver = {
   Query: {
@@ -7,9 +9,33 @@ const PostResolver = {
       const post = PostModel.findOne({ id: args.id, })
       return post
     },
-    posts () {
-      const posts = PostModel.find()
-      // Category.populate(posts, { path: 'category', })
+    async searchPosts (_, { limit, sort, }: SearchQuery<Category>) {
+      const pipeLines: mongoose.PipelineStage[] = [
+        {
+          $lookup: {
+            from: 'categories',
+            localField: 'category_id',
+            foreignField: 'id',
+            as: 'category',
+          },
+        },
+        {
+          $unwind: {
+            path: '$category',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $match: {},
+        },
+        { $sort: sort || { created_unixtime: -1, }, }
+      ]
+
+      if (limit) {
+        pipeLines.push({ $limit: limit, })
+      }
+
+      const posts = await PostModel.aggregate(pipeLines).allowDiskUse(true).exec()
       return posts
     },
   },

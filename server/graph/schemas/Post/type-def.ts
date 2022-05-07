@@ -3,7 +3,6 @@ const PostTypeDef = /* GraphQL */ `
     id: String
     title: String
     content: String
-    is_published: Boolean
     published_at: Float
     category_id: String
     created_unixtime: Float
@@ -13,7 +12,6 @@ const PostTypeDef = /* GraphQL */ `
   input CreatePost {
     title: String!
     content: String!
-    is_published: Boolean!
     published_at: Float
     category_id: String
   }
@@ -22,15 +20,22 @@ const PostTypeDef = /* GraphQL */ `
     id: String!
     title: String!
     content: String!
-    is_published: Boolean!
     published_at: Float
     category_id: String
+  }
+
+  input PostSort {
+    id: Int
+    title: Int
+    published_at: Int
+    created_unixtime: Int
+    updated_unixtime: Int
   }
 
   # the schema allows the following query:
   type Query {
     post(id: String!): Post
-    posts: [Post]
+    searchPosts(limit: Int, sort: PostSort): [Post]
   }
 
   # this schema allows the following mutation:

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { FormField, } from '@/types/form'
 import { PostData, Category, } from '@/types'
+import { FormField, } from '@/types/form'
 import { BASE_PATH, } from '@/utils/const'
 
 const route = useRoute()
@@ -21,14 +21,13 @@ const state: State = reactive({
     id: '',
     title: '',
     content: '',
-    is_published: false,
     category_id: '',
     published_at: 0,
   },
 })
 
-const formFieldsRef = ref<FormField[]>()
-const categoriesRef = ref<Category[]>()
+const formFieldsRef = ref<FormField[]>([])
+const categoriesRef = ref<Category[]>([])
 
 const submitForm = async () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,7 +36,6 @@ const submitForm = async () => {
     : await usePost().postCreateOne({
       title: state.form.title,
       content: state.form.content,
-      is_published: state.form.is_published,
       category_id: state.form.category_id,
       published_at: state.form.published_at,
     })

@@ -14,7 +14,6 @@ export type PostData = {
   id: string
   title: string
   content: string
-  is_published: boolean
   category_id?: string
   published_at?: number
 }

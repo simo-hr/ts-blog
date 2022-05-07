@@ -1,6 +1,8 @@
 import { gqlClient, } from '../../gql-client'
 import { getStatement, } from '../common/arg'
-import { GET_POST, GET_POSTS, CREATE_POST, UPDATE_POST, REMOVE_POST, } from './statement'
+import { GET_POST, SEARCH_POSTS, CREATE_POST, UPDATE_POST, REMOVE_POST, } from './statement'
+import { PostData, Post, } from '@/types'
+import { SearchQuery, } from '@/types/graphql'
 
 export default {
   async getPost (variables: { id: string }) {
@@ -10,16 +12,15 @@ export default {
     })
     return result
   },
-  async getPosts () {
-    const gqlStatement = getStatement(GET_POSTS, {})
-    const result = await gqlClient.query(gqlStatement, {})
+  async searchPosts (variables: SearchQuery<Post>) {
+    const result = await gqlClient.query(SEARCH_POSTS(), variables)
     return result
   },
-  async createPost (variables) {
+  async createPost (variables: { post: Omit<PostData, 'id'> }) {
     const result = await gqlClient.mutation(CREATE_POST(), variables)
     return result
   },
-  async updatePost (variables) {
+  async updatePost (variables: { post: PostData }) {
     const result = await gqlClient.mutation(UPDATE_POST(), variables)
     return result
   },

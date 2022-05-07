@@ -2,7 +2,6 @@ const commonStatement = /* GraphQL */ `
 id
 title
 content
-is_published
 published_at
 `
 const GET_POST = (args) => {
@@ -14,10 +13,10 @@ const GET_POST = (args) => {
   }
 `
 }
-const GET_POSTS = () => {
+const SEARCH_POSTS = () => {
   return /* GraphQL */ `
-  {
-    posts {
+  query ($limit: Int, $sort: PostSort) {
+    searchPosts(limit: $limit, sort: $sort) {
       ${commonStatement}
       created_unixtime
       updated_unixtime
@@ -54,4 +53,4 @@ const REMOVE_POST = () => {
 `
 }
 
-export { GET_POST, GET_POSTS, CREATE_POST, UPDATE_POST, REMOVE_POST, }
+export { GET_POST, SEARCH_POSTS, CREATE_POST, UPDATE_POST, REMOVE_POST, }

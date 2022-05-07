@@ -11,6 +11,7 @@ const fetchData = async () => {
     throw error
   }
   postsRef.value = posts
+  console.log('🚀 ~ postsRef.value ', postsRef.value)
 }
 
 useAsyncData('data', async () => {
@@ -48,9 +49,6 @@ const deletePost = async (index) => {
             コンテント
           </th>
           <th class="px-4 py-2">
-            公開/非公開
-          </th>
-          <th class="px-4 py-2">
             公開日
           </th>
           <th class="px-4 py-2">
@@ -80,9 +78,6 @@ const deletePost = async (index) => {
           </td>
           <td class="border px-4 py-2">
             {{ post.content }}
-          </td>
-          <td class="border px-4 py-2">
-            {{ post.is_published }}
           </td>
           <td class="border px-4 py-2">
             {{ post.published_at }}

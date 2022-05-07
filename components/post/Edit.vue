@@ -22,7 +22,7 @@ const state: State = reactive({
     title: '',
     content: '',
     category_id: '',
-    published_at: 0,
+    published_unixtime: 0,
   },
 })
 
@@ -37,7 +37,7 @@ const submitForm = async () => {
       title: state.form.title,
       content: state.form.content,
       category_id: state.form.category_id,
-      published_at: state.form.published_at,
+      published_unixtime: state.form.published_unixtime,
     })
   if (error) {
     console.log(error)

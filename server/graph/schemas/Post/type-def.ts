@@ -3,7 +3,7 @@ const PostTypeDef = /* GraphQL */ `
     id: String
     title: String
     content: String
-    published_at: Float
+    published_unixtime: Float
     category_id: String
     category: Category
     created_unixtime: Float
@@ -13,7 +13,7 @@ const PostTypeDef = /* GraphQL */ `
   input CreatePost {
     title: String!
     content: String!
-    published_at: Float
+    published_unixtime: Float
     category_id: String
   }
 
@@ -21,14 +21,14 @@ const PostTypeDef = /* GraphQL */ `
     id: String!
     title: String!
     content: String!
-    published_at: Float
+    published_unixtime: Float
     category_id: String
   }
 
   input PostSort {
     id: Int
     title: Int
-    published_at: Int
+    published_unixtime: Int
     created_unixtime: Int
     updated_unixtime: Int
   }

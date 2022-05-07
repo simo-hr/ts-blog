@@ -79,7 +79,7 @@ const deletePost = async (index) => {
             {{ post.content }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.published_at }}
+            {{ post.published_unixtime }}
           </td>
           <td class="border px-4 py-2">
             {{ unixtimeToFormatDatetime(post.created_unixtime) }}

@@ -26,7 +26,7 @@ export type PostData = {
   title: string
   content: string
   category_id?: string
-  published_at?: number
+  published_unixtime?: number
 }
 
 export type Post = PostData &

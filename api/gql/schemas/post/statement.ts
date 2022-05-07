@@ -2,7 +2,7 @@ const commonStatement = /* GraphQL */ `
 id
 title
 content
-published_at
+published_unixtime
 `
 const GET_POST = (args) => {
   return /* GraphQL */ `

@@ -30,7 +30,6 @@ export const usePost: UsePost = () => {
     let error: unknown
 
     const resPosts = await RepositoryFactory.Post.searchPosts({ sort, })
-    console.log('🚀 ~ resPosts', resPosts)
     if (resPosts.error) {
       error = resPosts.error
     } else {

@@ -11,7 +11,6 @@ const fetchData = async () => {
     throw error
   }
   postsRef.value = posts
-  console.log('🚀 ~ postsRef.value ', postsRef.value)
 }
 
 useAsyncData('data', async () => {

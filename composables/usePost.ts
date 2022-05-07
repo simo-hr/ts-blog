@@ -81,7 +81,7 @@ export const usePost: UsePost = () => {
   }
 
   const postDelete = async (id: string): Promise<{ error: unknown }> => {
-    let error: unknown = {}
+    let error: unknown
     const res = await RepositoryFactory.Post.removePost({ id, })
     if (res.error) {
       error = res.error

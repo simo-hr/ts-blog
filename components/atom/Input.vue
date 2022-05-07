@@ -45,7 +45,6 @@ type Emits = {
 const emit = defineEmits<Emits>()
 
 const handleInput: EventHandler = (e) => {
-  console.log('e:', e)
   emit('update:modelValue', e.target.value)
 }
 </script>

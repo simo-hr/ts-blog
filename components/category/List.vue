@@ -7,7 +7,6 @@ const categoriesRef = ref<Category[]>([])
 const fetchData = async () => {
   const { categories, error, } = await useCategory().categoryAll({ updated_unixtime: -1, })
   if (error) {
-    console.log(error)
     throw error
   }
   categoriesRef.value = categories
@@ -64,7 +63,7 @@ const deleteCategory = async (index: number) => {
             {{ index + 1 }}
           </td>
           <td class="border px-4 py-2">
-            {{ category.parent_category.name }}
+            {{ category.parent_category?.name }}
           </td>
           <td class="border px-4 py-2">
             {{ category.name }}

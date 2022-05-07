@@ -23,8 +23,10 @@ export interface TimeStamp {
 export const timeStampDefinition: Required<SchemaDefinition<TimeStamp>> = {
   created_unixtime: {
     type: Number,
+    default: new Date().getTime(),
   },
   updated_unixtime: {
     type: Number,
+    default: new Date().getTime(),
   },
 }

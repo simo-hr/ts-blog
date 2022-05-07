@@ -5,6 +5,7 @@ const PostTypeDef = /* GraphQL */ `
     content: String
     published_at: Float
     category_id: String
+    category: Category
     created_unixtime: Float
     updated_unixtime: Float
   }

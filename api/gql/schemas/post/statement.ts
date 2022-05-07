@@ -18,6 +18,11 @@ const SEARCH_POSTS = () => {
   query ($limit: Int, $sort: PostSort) {
     searchPosts(limit: $limit, sort: $sort) {
       ${commonStatement}
+      category {
+        id
+        name
+        parent_category_id
+      }
       created_unixtime
       updated_unixtime
     },

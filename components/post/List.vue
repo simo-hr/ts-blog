@@ -39,7 +39,7 @@ const deletePost = async (index) => {
             #
           </th>
           <th class="px-4 py-2">
-            ポストID
+            カテゴリー
           </th>
           <th class="px-4 py-2">
             タイトル
@@ -70,7 +70,7 @@ const deletePost = async (index) => {
             {{ index + 1 }}
           </td>
           <td class="border px-4 py-2">
-            {{ post.id }}
+            {{ post.category?.name }}
           </td>
           <td class="border px-4 py-2">
             {{ post.title }}

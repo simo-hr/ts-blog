@@ -15,7 +15,7 @@ const PostResolver = {
           $lookup: {
             from: 'categories',
             localField: 'category_id',
-            foreignField: 'id',
+            foreignField: '_id',
             as: 'category',
           },
         },

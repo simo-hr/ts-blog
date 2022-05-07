@@ -49,15 +49,13 @@ const submitForm = async () => {
 }
 
 const fetchData = async () => {
-  const { categories, error, } = await useCategory().categorySearch()
+  const { categories, error, } = await useCategory().categoryAll()
   if (error) {
     console.log(error)
     throw error
   }
   categoriesRef.value = categories
-}
 
-useAsyncData('data', async () => {
   if (typeof route.params?.id === 'string') {
     const { post, error, } = await usePost().postById(route.params.id)
     if (error) {
@@ -66,7 +64,7 @@ useAsyncData('data', async () => {
     }
     state.form = post
   }
-  await fetchData()
+
   formFieldsRef.value = [
     {
       id: 'id',
@@ -94,8 +92,8 @@ useAsyncData('data', async () => {
       type: 'text',
     },
     {
-      id: 'category',
-      name: 'category',
+      id: 'categoryId',
+      name: 'category_id',
       labelName: 'カテゴリー',
       value: state.form.category_id,
       required: true,
@@ -105,6 +103,10 @@ useAsyncData('data', async () => {
       selectText: 'name',
     }
   ]
+}
+
+useAsyncData('data', async () => {
+  await fetchData()
 })
 </script>
 

@@ -17,7 +17,7 @@ useAsyncData('data', async () => {
   await fetchData()
 })
 
-const deletePost = async (index) => {
+const deletePost = async (index: number) => {
   const { error, } = await usePost().postDelete(postsRef.value[index].id)
   if (error) {
     console.log(error)

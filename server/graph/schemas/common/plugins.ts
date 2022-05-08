@@ -1,10 +1,10 @@
-import { SchemaDefinition, } from 'mongoose'
+import mongoose from 'mongoose'
 
 export interface Id {
   id: string
 }
 
-export const idDefinition: Required<SchemaDefinition<Id>> = {
+export const idDefinition: Required<mongoose.SchemaDefinition<Id>> = {
   id: {
     type: String,
     required: true,
@@ -20,7 +20,7 @@ export interface TimeStamp {
   updated_unixtime: number
 }
 
-export const timeStampDefinition: Required<SchemaDefinition<TimeStamp>> = {
+export const timeStampDefinition: Required<mongoose.SchemaDefinition<TimeStamp>> = {
   created_unixtime: {
     type: Number,
     default: new Date().getTime(),

@@ -33,7 +33,7 @@ type SelectSectionProps = {
   labelName: string
   labelClass?: string
   labelStyle?: string
-  selectItems: any[]
+  selectItems: unknown[]
   selectValue: string
   selectText: string
 }

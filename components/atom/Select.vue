@@ -28,7 +28,7 @@ type Props = {
   class?: string
   style?: string
   required?: boolean
-  selectItems: any[]
+  selectItems: unknown[]
   selectValue: string
   selectText: string
 }

@@ -1,16 +1,17 @@
 import { signAccessToken, verifyAccessToken, } from '../../../common/auth/jwt-auth'
-import Admin from './model'
+import AdminModel from './model'
 
 const PostResolver = {
   Mutation: {
-    async signUp (_, { email, password, }) {
-      const admin = new Admin()
-      await admin.signUp({ email, password, })
+    signUp (_, { email, password, }) {
+      const admin = new AdminModel()
+      admin.signUp({ email, password, })
       admin.id = admin._id.toString()
       return admin.save()
     },
     async signIn (_, { email, password, }) {
-      const admin = await Admin.findOne({ email, })
+      // "[GraphQL] secretOrPrivateKey must have a value"
+      const admin = await AdminModel.findOne({ email, })
       if (!admin) {
         throw new Error('Error: email is invalid')
       }
@@ -18,11 +19,11 @@ const PostResolver = {
         throw new Error('Error: email or password is invalid')
       }
       const accessToken = signAccessToken(admin.id)
-      admin.accessToken = accessToken
+      admin.access_token = accessToken
       return admin.save()
     },
     async checkAccessToken (_, { accessToken, }) {
-      const admin = await Admin.findOne({ accessToken, })
+      const admin = await AdminModel.findOne({ accessToken, })
       if (!admin) {
         throw new Error('Error: accessToken is invalid')
       }

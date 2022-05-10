@@ -4,8 +4,7 @@ import { SIGN_IN, SIGN_UP, CHECK_ACCESS_TOKEN, } from './statement'
 
 export default {
   async signIn (variables: { email: string; password: string }): Promise<any> {
-    const gqls = getStatement(SIGN_IN, variables)
-    const result = await gqlClient.mutation(gqls, {
+    const result = await gqlClient.mutation(SIGN_IN(), {
       ...variables,
     })
     return result

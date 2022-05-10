@@ -7,7 +7,7 @@ export type Admin = {
   id: string
   email: string
   password: string
-  accessToken: string
+  access_token: string
 }
 export type CategoryData = {
   id: string

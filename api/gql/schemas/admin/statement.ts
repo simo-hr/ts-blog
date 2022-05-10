@@ -1,14 +1,14 @@
-const SIGN_IN = (args) => {
+const SIGN_IN = () => {
   return /* GraphQL */ `
-  mutation {
-    signIn(${args}) {
-      id
-      email
-      password
-      accessToken
-    },
-  }
-`
+    mutation ($email: String!, $password: String!) {
+      signIn(email: $email, password: $password) {
+        id
+        email
+        password
+        access_token
+      }
+    }
+  `
 }
 
 const SIGN_UP = (args) => {
@@ -18,7 +18,7 @@ const SIGN_UP = (args) => {
       id
       email
       password
-      accessToken
+      access_token
     },
   }
 `
@@ -31,7 +31,7 @@ const CHECK_ACCESS_TOKEN = (args) => {
       id
       email
       password
-      accessToken
+      access_token
     },
   }
 `
